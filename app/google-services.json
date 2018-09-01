@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "735140132931",
+    "firebase_url": "https://jeparamart-610aa.firebaseio.com",
+    "project_id": "jeparamart-610aa",
+    "storage_bucket": "jeparamart-610aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735140132931:android:33140b4590163342",
+        "android_client_info": {
+          "package_name": "com.perusda.jeparamart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735140132931-vcuphgpebh1s84cvijbipc0vlfnspu41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCghkW7CWuzWmHlviHbsAg5hdwkfI418Hw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735140132931:android:0da55f199e4c0c66",
+        "android_client_info": {
+          "package_name": "com.perusdajepara.jeparamart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735140132931-vcuphgpebh1s84cvijbipc0vlfnspu41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCghkW7CWuzWmHlviHbsAg5hdwkfI418Hw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
