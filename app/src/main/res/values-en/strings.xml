@@ -189,7 +189,7 @@
     <string name="added_to_favourites"> Added to Favourites </string>
     <string name="removed_from_favourites"> Removed from Favourites </string>
     <string name="not_a_member"> Not a Member? </string>
-    <string name="login_or_signup"> Login &amp; Register </string>
+    <string name="login_or_signup">Login und Register</string>
     <string name="login_or_create_account"> Please Login or create Account </string>
     <string name="thank_you_for_shopping"> Thank You for shopping with us! </string>
     <string name="coupon_removes_other_coupons"> This coupon may remove all other coupons! </string>
@@ -307,6 +307,27 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </string>
+    <string name="subdistrict">Sub District</string>
+    <string name="select_your_subdistrict">Select Your Sub District</string>
+    <string name="delete_address">Delete Address?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="not_include_code">Your total payment does not include the payment code</string>
+    <string name="payment_will_be_added">Your total payment will be added to the payment code</string>
+    <string name="your_total_price">Your Total Price</string>
+    <string name="please_transfer_via_our_account">Please transfer via our account</string>
+    <string name="your_order_id">Your Order ID</string>
+    <string name="jepara_mart_will_verify_after_you_make_payment">Jepara Mart will verify after you make payment</string>
+    <string name="copy">COPY</string>
+    <string name="payment_instructions">Payment Instructions</string>
+    <string name="please_transfer_3_digits">Please transfer right up to the last 3 digits of the total payment so as not to impede the verification process</string>
+    <string name="problem">If you experience problems. Please contact us</string>
+    <string name="payment_code">Payment Code</string>
+    <string name="item_confirmation_received">Item confirmation received</string>
+    <string name="confirm_imm">Confirm immediately if the item has arrived</string>
+    <string name="incorret_code">Payment with an incorrect code will hamper the payment verification process</string>
+    <string name="item_received">Items Received</string>
+    <string name="have_you_received">Have you received the goods?</string>
 
 
 </resources>

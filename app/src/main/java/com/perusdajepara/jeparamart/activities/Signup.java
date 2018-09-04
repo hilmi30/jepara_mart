@@ -25,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +76,10 @@ public class Signup extends AppCompatActivity {
     CircularImageView user_photo;
     FloatingActionButton user_photo_edit_fab;
     EditText user_firstname, user_lastname, user_email, user_password, user_mobile;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
+    int selectedRadioId;
+    String gender;
 
 
     @Override
@@ -107,7 +113,8 @@ public class Signup extends AppCompatActivity {
         signup_loginText = (TextView) findViewById(R.id.signup_loginText);
         banner_adView = (FrameLayout) findViewById(R.id.banner_adView);
         user_photo_edit_fab = (FloatingActionButton) findViewById(R.id.user_photo_edit_fab);
-    
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+
         if (ConstantValues.IS_ADMOBE_ENABLED) {
             // Initialize Admobe
             mAdView = new AdView(Signup.this);
@@ -309,7 +316,12 @@ public class Signup extends AppCompatActivity {
 
                 if (isValidData) {
                     parentView = v;
-        
+
+                    selectedRadioId = radioGroup.getCheckedRadioButtonId();
+                    radioButton = (RadioButton) findViewById(selectedRadioId);
+
+                    gender = radioButton.getTag().toString();
+
                     // Proceed User Registration
                     processRegistration();
                 }
@@ -417,6 +429,7 @@ public class Signup extends AppCompatActivity {
                             user_email.getText().toString().trim(),
                             user_password.getText().toString().trim(),
                             user_mobile.getText().toString().trim(),
+                            gender,
                             profileImage
                         );
 

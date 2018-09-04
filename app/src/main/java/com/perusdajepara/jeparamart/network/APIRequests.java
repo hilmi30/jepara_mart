@@ -50,6 +50,7 @@ public interface APIRequests {
                                             @Field("customers_email_address") String customers_email_address,
                                             @Field("customers_password") String customers_password,
                                             @Field("customers_telephone") String customers_telephone,
+                                            @Field("customers_gender") String customers_gender,
                                             @Field("customers_picture") String customers_picture);
 
     @FormUrlEncoded
@@ -83,7 +84,9 @@ public interface APIRequests {
                                             @Field("customers_dob") String customers_dob,
                                             @Field("customers_picture") String customers_picture,
                                             @Field("customers_old_picture") String customers_old_picture,
-                                            @Field("customers_password") String customers_password );
+                                            @Field("customers_current_password") String customers_current_password,
+                                            @Field("customers_password") String customers_password,
+                                            @Field("customers_gender") String gender);
     
     
     

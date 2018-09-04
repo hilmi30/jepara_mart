@@ -305,6 +305,27 @@
         يعبأ الباهضة وبلجيكا، شيء تم. أن وسوء الخاسرة والمعدات لمّ. كل عشوائية ومطالبة التغييرات حدى.
     </string>
     <string name="card_expiry">انتهاء البطاقة</string>
+    <string name="subdistrict">الحي الفرعي</string>
+    <string name="select_your_subdistrict">اختر منطقتك الفرعية</string>
+    <string name="delete_address">حذف العنوان؟</string>
+    <string name="yes">نعم فعلا</string>
+    <string name="no">لا</string>
+    <string name="not_include_code">لا يشمل المبلغ الإجمالي الخاص بك رمز الدفع</string>
+    <string name="payment_will_be_added">ستتم إضافة دفعتك الإجمالية إلى رمز الدفع</string>
+    <string name="your_total_price">مجموع السعر</string>
+    <string name="please_transfer_via_our_account">يرجى نقل عبر حسابنا</string>
+    <string name="your_order_id">معرف الطلب الخاص بك</string>
+    <string name="jepara_mart_will_verify_after_you_make_payment">سيتحقق جيبارا مارت بعد إجراء الدفع</string>
+    <string name="copy">نسخ</string>
+    <string name="payment_instructions">تعليمات الدفع</string>
+    <string name="please_transfer_3_digits">يرجى نقل ما يصل إلى آخر 3 أرقام من إجمالي الدفعة حتى لا تعرقل عملية التحقق</string>
+    <string name="problem">إذا كنت تواجه مشاكل. الرجاء التواصل معنا</string>
+    <string name="payment_code">رمز الدفع</string>
+    <string name="item_confirmation_received">تلقى تأكيدا البند</string>
+    <string name="confirm_imm">تأكيد على الفور إذا كان هذا البند قد وصل</string>
+    <string name="incorret_code">سيؤدي الدفع باستخدام رمز غير صحيح إلى إعاقة عملية التحقق من الدفع</string>
+    <string name="item_received">العناصر المستلمة</string>
+    <string name="have_you_received">هل استلمت البضائع؟</string>
 
 
 </resources>

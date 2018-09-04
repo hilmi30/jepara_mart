@@ -28,6 +28,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -68,6 +70,8 @@ public class Update_Account extends Fragment {
     CircularImageView user_photo;
     FloatingActionButton user_photo_edit_fab;
     EditText input_first_name, input_last_name, input_dob, input_contact_no, input_current_password, input_new_password;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     DialogLoader dialogLoader;
 
@@ -98,6 +102,7 @@ public class Update_Account extends Fragment {
         input_new_password = (EditText) rootView.findViewById(R.id.new_password);
         updateInfoBtn = (Button) rootView.findViewById(R.id.updateInfoBtn);
         user_photo_edit_fab = (FloatingActionButton) rootView.findViewById(R.id.user_photo_edit_fab);
+        radioGroup = (RadioGroup) rootView.findViewById(R.id.radio_group_update);
 
 
         // Set KeyListener of some View to null
@@ -115,6 +120,11 @@ public class Update_Account extends Fragment {
         input_last_name.setText(userInfo.getCustomersLastname());
         input_contact_no.setText(userInfo.getCustomersTelephone());
 
+        if(userInfo.getCustomersGender().equalsIgnoreCase("1")) {
+            radioGroup.check(R.id.radioMaleUpdate);
+        } else {
+            radioGroup.check(R.id.radioFemaleUpdate);
+        }
 
         // Set User's Date of Birth
         if (userInfo.getCustomersDob().equalsIgnoreCase("0000-00-00 00:00:00")) {
@@ -340,8 +350,11 @@ public class Update_Account extends Fragment {
 
     private void updateCustomerInfo() {
 
+        int selectedRadio = radioGroup.getCheckedRadioButtonId();
+
+        radioButton = (RadioButton) rootView.findViewById(selectedRadio);
+
         dialogLoader.showProgressDialog();
-        
 
         Call<UserData> call = APIClient.getInstance()
                 .updateCustomerInfo
@@ -353,7 +366,9 @@ public class Update_Account extends Fragment {
                                 input_dob.getText().toString().trim(),
                                 profileImageChanged,
                                 profileImageCurrent,
-                                input_new_password.getText().toString().trim()
+                                input_current_password.getText().toString().trim(),
+                                input_new_password.getText().toString().trim(),
+                                radioButton.getTag().toString()
                         );
 
         call.enqueue(new Callback<UserData>() {
@@ -431,7 +446,7 @@ public class Update_Account extends Fragment {
     //*********** Validate Password Info Form Inputs ********//
 
     private boolean validatePasswordForm() {
-        if (!input_current_password.getText().toString().trim().equals(userInfo.getCustomersPassword())) {
+        if (!ValidateInputs.isValidPassword(input_current_password.getText().toString().trim())) {
             input_current_password.setError(getString(R.string.invalid_password));
             return false;
         } else if (!ValidateInputs.isValidPassword(input_new_password.getText().toString().trim())) {

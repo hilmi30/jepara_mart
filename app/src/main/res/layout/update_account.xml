@@ -140,6 +140,47 @@
                     android:gravity="start|center_vertical"
                     android:layout_marginTop="@dimen/input_field_margin"
                     android:background="@drawable/rounded_corners_edittext_dark" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_gender"/>
+
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:id="@+id/radio_group_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:tag="@string/one"
+                        android:id="@+id/radioMaleUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:layout_marginStart="20dp"
+                        android:tag="@string/zero"
+                        android:id="@+id/radioFemaleUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:textSize="16sp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_password"/>
+
                 <EditText
                     android:id="@+id/current_password"
                     android:layout_width="match_parent"

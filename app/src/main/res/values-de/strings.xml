@@ -188,7 +188,7 @@
     <string name="added_to_favourites"> Zu Favoriten Addieren </string>
     <string name="removed_from_favourites"> Aus Favoriten entfernt </string>
     <string name="not_a_member"> Kein Mitglied? </string>
-    <string name="login_or_signup"> Anmeldung &amp; Registrieren </string>
+    <string name="login_or_signup">Anmeldung and Registrieren</string>
     <string name="login_or_create_account"> Bitte einloggen oder Konto erstellen </string>
     <string name="thank_you_for_shopping"> Danke für ihren Einkauf! </string>
     <string name="coupon_removes_other_coupons"> Dieser Coupon kann alle anderen Coupons entfernen! </string>
@@ -307,6 +307,27 @@
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     </string>
     <string name="card_expiry">Ausweis Ablauf</string>
+    <string name="subdistrict">Unterbezirk</string>
+    <string name="delete_address">Adresse löschen?</string>
+    <string name="select_your_subdistrict">Wählen Sie Ihren Unterbezirk</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="not_include_code">Ihre gesamte Zahlung enthält nicht den Zahlungscode</string>
+    <string name="payment_will_be_added">Ihre gesamte Zahlung wird dem Zahlungscode hinzugefügt</string>
+    <string name="your_total_price">Ihr Gesamtpreis</string>
+    <string name="please_transfer_via_our_account">Bitte überweisen Sie uns über unser Konto</string>
+    <string name="your_order_id">Ihre Bestellnummer</string>
+    <string name="jepara_mart_will_verify_after_you_make_payment">Jepara Mart überprüft, nachdem Sie die Zahlung vorgenommen haben</string>
+    <string name="copy">KOPIEREN</string>
+    <string name="payment_instructions">Zahlungsanweisungen</string>
+    <string name="please_transfer_3_digits">Bitte überweisen Sie bis zu den letzten 3 Ziffern der Gesamtbezahlung, um den Verifizierungsprozess nicht zu behindern</string>
+    <string name="problem">Wenn Sie Probleme haben. Bitte kontaktieren Sie uns</string>
+    <string name="payment_code">Zahlungscode</string>
+    <string name="item_confirmation_received">Artikelbestätigung erhalten</string>
+    <string name="confirm_imm">Bestätigen Sie sofort, wenn der Artikel angekommen ist</string>
+    <string name="incorret_code">Die Zahlung mit einem falschen Code wird den Zahlungsverifizierungsprozess behindern</string>
+    <string name="item_received">Artikel erhalten</string>
+    <string name="have_you_received">Haben Sie die Waren erhalten?</string>
 
 
 </resources>
