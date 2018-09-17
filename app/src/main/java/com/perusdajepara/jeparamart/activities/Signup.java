@@ -507,7 +507,7 @@ public class Signup extends AppCompatActivity {
     
         String languageCode = ConstantValues.LANGUAGE_CODE;
         if ("".equalsIgnoreCase(languageCode))
-            languageCode = ConstantValues.LANGUAGE_CODE = "en";
+            languageCode = ConstantValues.LANGUAGE_CODE = "in";
     
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }

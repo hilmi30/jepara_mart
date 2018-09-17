@@ -261,11 +261,10 @@
     <string name="slide_3_title"> Shop Page </string>
     <string name="slide_4_title"> Cart Page </string>
     <string name="slide_5_title"> Order Page </string>
-    <string name="slide_1_desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </string>
-    <string name="slide_2_desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </string>
-    <string name="slide_3_desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </string>
-    <string name="slide_4_desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </string>
-    <string name="slide_5_desc"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </string>
+    <string name="slide_1_desc">"Simple and attractive front page. Make you comfortable in seeing and choosing items. "</string>
+    <string name="slide_2_desc">Get ease in choosing items based on the category you want.</string>
+    <string name="slide_3_desc">"Search for items you want in our store. Our shop provides goods for various needs. "</string>
+    <string name="slide_5_desc">"See your shopping details before buying. "</string>
 
 
     <!--  App Settings Strings -->
@@ -328,6 +327,11 @@
     <string name="incorret_code">Payment with an incorrect code will hamper the payment verification process</string>
     <string name="item_received">Items Received</string>
     <string name="have_you_received">Have you received the goods?</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_gender">Change Gender</string>
+    <string name="we_will_send_email">We will send an email to change your password</string>
+    <string name="please_check_your_email_and_change_your_password">Please check your email and change your password</string>
+    <string name="slide_4_desc">Cart feature to make it easier for you to buy large quantities of goods.</string>
 
 
 </resources>

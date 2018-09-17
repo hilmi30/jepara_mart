@@ -364,6 +364,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         editor = sharedPreferences.edit();
                         editor.putString("userID", userDetails.getCustomersId());
                         editor.putString("userEmail", userDetails.getCustomersEmailAddress());
+                        Log.d("tes", userDetails.getCustomersEmailAddress());
                         editor.putString("userName", userDetails.getCustomersFirstname()+" "+userDetails.getCustomersLastname());
                         editor.putString("userDefaultAddressID", userDetails.getCustomersDefaultAddressId());
                         editor.putBoolean("isLogged_in", true);
@@ -650,7 +651,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     
         String languageCode = ConstantValues.LANGUAGE_CODE;
         if ("".equalsIgnoreCase(languageCode))
-            languageCode = ConstantValues.LANGUAGE_CODE = "en";
+            languageCode = ConstantValues.LANGUAGE_CODE = "in";
     
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }

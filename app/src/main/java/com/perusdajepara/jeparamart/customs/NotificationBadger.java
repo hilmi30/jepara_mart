@@ -32,12 +32,12 @@ public class NotificationBadger extends Drawable {
         float mTextSize = context.getResources().getDimension(R.dimen.badge_text_size);
 
         badgePaint1 = new Paint();
-        badgePaint1.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccentGreen));
+        badgePaint1.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccentRed));
         badgePaint1.setAntiAlias(true);
         badgePaint1.setStyle(Paint.Style.FILL);
 
         badgePaint2 = new Paint();
-        badgePaint2.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccentGreen));
+        badgePaint2.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorAccentRed));
         badgePaint2.setAntiAlias(true);
         badgePaint2.setStyle(Paint.Style.FILL);
 

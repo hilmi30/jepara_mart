@@ -101,7 +101,7 @@ public interface APIRequests {
 
     @FormUrlEncoded
     @POST("getKecamatan")
-    Call<Kecamatan> getKecamatan(@Field("id_kab") String id_kab);
+    Call<Kecamatan> getKecamatan(           @Field("id_kab") String id_kab);
 
     @FormUrlEncoded
     @POST("getAllAddress")

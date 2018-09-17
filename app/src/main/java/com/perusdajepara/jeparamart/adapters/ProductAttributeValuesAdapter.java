@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.perusdajepara.jeparamart.R;
 import com.perusdajepara.jeparamart.constant.ConstantValues;
 import com.perusdajepara.jeparamart.models.product_model.Value;
+import com.perusdajepara.jeparamart.utils.Utilities;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class ProductAttributeValuesAdapter extends RecyclerView.Adapter<ProductA
     
         holder.attribute_value_name.setText(value.getValue());
         holder.attribute_value_prefix.setText(value.getPricePrefix());
-        holder.attribute_value_price.setText(ConstantValues.CURRENCY_SYMBOL + value.getPrice());
+        holder.attribute_value_price.setText(Utilities.convertToRupiah(value.getPrice()));
     }
 
 

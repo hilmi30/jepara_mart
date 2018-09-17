@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,7 +167,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                 
                         // Set Final Price and Quantity
                         cartProduct.getCustomersBasketProduct().setCustomersBasketQuantity(number[0]);
-                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+ new DecimalFormat("#0.00").format(price));
+//                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+ new DecimalFormat("#0.00").format(price));
+                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+price);
                 
                 
                         // Update CartItem in Local Database using static method of My_Cart
@@ -199,8 +201,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
                 
                         // Set Final Price and Quantity
                         cartProduct.getCustomersBasketProduct().setCustomersBasketQuantity(number[0]);
-                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+ new DecimalFormat("#0.00").format(price));
-                
+//                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+ new DecimalFormat("#0.00").format(price));
+                        cartProduct.getCustomersBasketProduct().setTotalPrice(""+price);
                 
                         // Update CartItem in Local Database using static method of My_Cart
                         My_Cart.UpdateCartItem

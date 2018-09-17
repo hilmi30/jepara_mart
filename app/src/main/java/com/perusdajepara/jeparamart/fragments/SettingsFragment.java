@@ -428,7 +428,7 @@ public class SettingsFragment extends Fragment {
                         .into(profile_image);
     
                 btn_edit_profile.setText(getString(R.string.edit_profile));
-                btn_edit_profile.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_green));
+                btn_edit_profile.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_red));
                 
             }
             else {

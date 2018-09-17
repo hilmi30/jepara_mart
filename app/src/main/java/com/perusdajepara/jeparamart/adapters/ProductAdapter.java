@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,8 +111,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             } else {
                 holder.product_checked.setVisibility(View.GONE);
             }
-    
-    
+
             // Set Product Image on ImageView with Glide Library
             Glide.with(context)
                     .load(ConstantValues.ECOMMERCE_URL+product.getProductsImage())
@@ -170,7 +170,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 // Hide Discount Text and Set Product's Price
                 holder.product_tag_discount.setVisibility(View.GONE);
                 holder.product_tag_discount_text.setVisibility(View.GONE);
-                holder.product_price_old.setVisibility(View.GONE);
+                holder.product_price_old.setVisibility(View.INVISIBLE);
 //                holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL + product.getProductsPrice());
                 holder.product_price_new.setText(Utilities.convertToRupiah(product.getProductsPrice()));
             }

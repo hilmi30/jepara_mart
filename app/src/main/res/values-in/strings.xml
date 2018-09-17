@@ -90,7 +90,7 @@
     <string name="facebook_login">Login Facebook</string>
     <string name="in_stock">Stok Ada</string>
     <string name="outOfStock">Stok Habis</string>
-    <string name="addToCart">Tambah ke Keranjang</string>
+    <string name="addToCart">Beli</string>
     <string name="removeProduct">Hapus Produk</string>
     <string name="removeFromCart">Hapus Produk dari Keranjang</string>
     <string name="save_address">Simpan Alamat</string>
@@ -174,7 +174,7 @@
     <string name="thank_you_for_shopping">Terima Kasih Sudah Berbelanja</string>
     <string name="coupon_removes_other_coupons">Kupon ini dapat menghapus semua kupon lainnya!</string>
     <string name="forgot_your_password">Lupa Password?</string>
-    <string name="forgot_password">Saya lupa password saya?</string>
+    <string name="forgot_password">Lupa Password?</string>
     <string name="already_have_account">Sudah punya akun?</string>
     <string name="search_product_by_name">Ketik Sesuatu untuk Cari</string>
     <string name="default_shipping">"Alamat Pengiriman Default "</string>
@@ -228,11 +228,11 @@
     <string name="slide_3_title">Halaman Toko</string>
     <string name="slide_4_title">Halaman Keranjang</string>
     <string name="slide_5_title">Halaman Order</string>
-    <string name="slide_1_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</string>
-    <string name="slide_2_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</string>
-    <string name="slide_3_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</string>
-    <string name="slide_4_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</string>
-    <string name="slide_5_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</string>
+    <string name="slide_1_desc">"Halaman depan yang sederhana dan menarik. Membuat anda nyaman dalam melihat dan memilih barang. "</string>
+    <string name="slide_2_desc">Dapatkan kemudahan dalam memilih barang berdasarkan kategori yang kamu inginkan.</string>
+    <string name="slide_3_desc">Cari barang yang ada mau di toko kami. Toko kami menyediakan barang untuk berbagai kebutuhan.</string>
+    <string name="slide_4_desc">Fitur cart untuk memudahkan anda membeli barang dalam jumlah banyak</string>
+    <string name="slide_5_desc">Lihat detail belanjaan anda sebelum membeli.</string>
     <string name="select_language">Pilih Bahasa</string>
     <string name="official_web">"Situs Web Resmi "</string>
     <string name="share_app">Bagikan Aplikasi</string>
@@ -269,4 +269,8 @@
     <string name="confirm_imm">Segera konfirmasi jika barang telah tiba</string>
     <string name="item_received">Barang yang Diterima</string>
     <string name="have_you_received">Apakah kamu sudah menerima barangnya?</string>
+    <string name="change_password">Ubah Password</string>
+    <string name="change_gender">Ubah Gender</string>
+    <string name="please_check_your_email_and_change_your_password">Silahkan cek email dan ganti password anda</string>
+    <string name="we_will_send_email">Kami akan mengirim email untuk mengubah kata sandi Anda</string>
 </resources>

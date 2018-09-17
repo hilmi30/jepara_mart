@@ -38,7 +38,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/drawer_header_height">
+                    android:layout_height="150dp">
 
                     <ImageView
                         android:id="@+id/drawer_header"

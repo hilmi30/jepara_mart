@@ -9,7 +9,7 @@ package com.perusdajepara.jeparamart.constant;
 public class ConstantValues {
     
     //*********** API Base URL ********//
-    public static final String ECOMMERCE_URL = "http://jeparamart2-nugrohoe-ku.c9users.io/";
+    public static final String ECOMMERCE_URL = "https://www.jeparamart.com/";
     
     public static final boolean IS_CLIENT_ACTIVE = true;                                // "false" if compiling the project for Demo, "true" otherwise
     

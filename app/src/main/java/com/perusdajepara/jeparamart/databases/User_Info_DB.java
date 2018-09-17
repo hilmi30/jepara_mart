@@ -32,7 +32,6 @@ public class User_Info_DB {
 
 
 
-
     //*********** Returns the Query to Create TABLE_USER_INFO ********//
 
     public static String createTable() {

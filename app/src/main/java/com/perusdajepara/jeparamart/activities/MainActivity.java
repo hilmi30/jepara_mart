@@ -338,56 +338,56 @@ public class MainActivity extends AppCompatActivity {
             homeStyle = appSettings.getHomeStyle();
             categoryStyle = appSettings.getCategoryStyle();
             
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.actionHome)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.actionCategories)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_cart, getString(R.string.actionShop)));
+            listDataHeader.add(new Drawer_Items(R.drawable.beranda, getString(R.string.actionHome)));
+            listDataHeader.add(new Drawer_Items(R.drawable.kategori, getString(R.string.actionCategories)));
+            listDataHeader.add(new Drawer_Items(R.drawable.toko, getString(R.string.actionShop)));
             
             if (appSettings.getEditProfilePage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_account, getString(R.string.actionAccount)));
+                listDataHeader.add(new Drawer_Items(R.drawable.akunku, getString(R.string.actionAccount)));
             if (appSettings.getMyOrdersPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_order, getString(R.string.actionOrders)));
+                listDataHeader.add(new Drawer_Items(R.drawable.orderku, getString(R.string.actionOrders)));
             if (appSettings.getShippingAddressPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_location, getString(R.string.actionAddresses)));
+                listDataHeader.add(new Drawer_Items(R.drawable.alamatku, getString(R.string.actionAddresses)));
             if (appSettings.getWishListPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_favorite, getString(R.string.actionFavourites)));
+                listDataHeader.add(new Drawer_Items(R.drawable.favorite, getString(R.string.actionFavourites)));
             if (appSettings.getIntroPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_intro, getString(R.string.actionIntro)));
+                listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
             if (appSettings.getNewsPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_newspaper, getString(R.string.actionNews)));
+                listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
             if (appSettings.getContactUsPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_chat_bubble, getString(R.string.actionContactUs)));
+                listDataHeader.add(new Drawer_Items(R.drawable.hubungi, getString(R.string.actionContactUs)));
             if (appSettings.getAboutUsPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_info, getString(R.string.actionAbout)));
+                listDataHeader.add(new Drawer_Items(R.drawable.tentangkami2, getString(R.string.actionAbout)));
             if (appSettings.getShareApp() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_share, getString(R.string.actionShareApp)));
+                listDataHeader.add(new Drawer_Items(R.drawable.share, getString(R.string.actionShareApp)));
             if (appSettings.getRateApp() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_star_circle, getString(R.string.actionRateApp)));
+                listDataHeader.add(new Drawer_Items(R.drawable.nilaiaplikasi2, getString(R.string.actionRateApp)));
             if (appSettings.getSettingPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_settings, getString(R.string.actionSettings)));
+                listDataHeader.add(new Drawer_Items(R.drawable.pengaturan, getString(R.string.actionSettings)));
             
             // Add last Header Item in Drawer Header List
             if (ConstantValues.IS_USER_LOGGED_IN) {
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_logout, getString(R.string.actionLogout)));
+                listDataHeader.add(new Drawer_Items(R.drawable.login, getString(R.string.actionLogout)));
             } else {
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_logout, getString(R.string.actionLogin)));
+                listDataHeader.add(new Drawer_Items(R.drawable.login, getString(R.string.actionLogin)));
             }
     
     
             if (!ConstantValues.IS_CLIENT_ACTIVE) {
                 List<Drawer_Items> home_styles = new ArrayList<>();
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle1)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle2)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle3)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle4)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle5)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle1)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle2)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle3)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle4)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle5)));
     
                 List<Drawer_Items> category_styles = new ArrayList<>();
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle1)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle2)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle3)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle4)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle5)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle6)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle1)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle2)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle3)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle4)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle5)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle6)));
     
                 List<Drawer_Items> shop_childs = new ArrayList<>();
                 shop_childs.add(new Drawer_Items(R.drawable.ic_arrow_up, getString(R.string.Newest)));
@@ -407,43 +407,43 @@ public class MainActivity extends AppCompatActivity {
             homeStyle = 1;
             categoryStyle = 1;
             
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.actionHome)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.actionCategories)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_cart, getString(R.string.actionShop)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_account, getString(R.string.actionAccount)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_order, getString(R.string.actionOrders)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_location, getString(R.string.actionAddresses)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_favorite, getString(R.string.actionFavourites)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_intro, getString(R.string.actionIntro)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_newspaper, getString(R.string.actionNews)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_info, getString(R.string.actionAbout)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_chat_bubble, getString(R.string.actionContactUs)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_share, getString(R.string.actionShareApp)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_star_circle, getString(R.string.actionRateApp)));
-            listDataHeader.add(new Drawer_Items(R.drawable.ic_settings, getString(R.string.actionSettings)));
+            listDataHeader.add(new Drawer_Items(R.drawable.beranda, getString(R.string.actionHome)));
+            listDataHeader.add(new Drawer_Items(R.drawable.kategori, getString(R.string.actionCategories)));
+            listDataHeader.add(new Drawer_Items(R.drawable.toko, getString(R.string.actionShop)));
+            listDataHeader.add(new Drawer_Items(R.drawable.akunku, getString(R.string.actionAccount)));
+            listDataHeader.add(new Drawer_Items(R.drawable.orderku, getString(R.string.actionOrders)));
+            listDataHeader.add(new Drawer_Items(R.drawable.alamatku, getString(R.string.actionAddresses)));
+            listDataHeader.add(new Drawer_Items(R.drawable.favorite, getString(R.string.actionFavourites)));
+            listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
+            listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
+            listDataHeader.add(new Drawer_Items(R.drawable.tentangkami2, getString(R.string.actionAbout)));
+            listDataHeader.add(new Drawer_Items(R.drawable.hubungi, getString(R.string.actionContactUs)));
+            listDataHeader.add(new Drawer_Items(R.drawable.share, getString(R.string.actionShareApp)));
+            listDataHeader.add(new Drawer_Items(R.drawable.nilaiaplikasi2, getString(R.string.actionRateApp)));
+            listDataHeader.add(new Drawer_Items(R.drawable.pengaturan, getString(R.string.actionSettings)));
             // Add last Header Item in Drawer Header List
             if (ConstantValues.IS_USER_LOGGED_IN) {
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_logout, getString(R.string.actionLogout)));
+                listDataHeader.add(new Drawer_Items(R.drawable.login, getString(R.string.actionLogout)));
             } else {
-                listDataHeader.add(new Drawer_Items(R.drawable.ic_logout, getString(R.string.actionLogin)));
+                listDataHeader.add(new Drawer_Items(R.drawable.login, getString(R.string.actionLogin)));
             }
     
     
             if (!ConstantValues.IS_CLIENT_ACTIVE) {
                 List<Drawer_Items> home_styles = new ArrayList<>();
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle1)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle2)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle3)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle4)));
-                home_styles.add(new Drawer_Items(R.drawable.ic_home, getString(R.string.homeStyle5)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle1)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle2)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle3)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle4)));
+                home_styles.add(new Drawer_Items(R.drawable.beranda, getString(R.string.homeStyle5)));
     
                 List<Drawer_Items> category_styles = new ArrayList<>();
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle1)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle2)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle3)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle4)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle5)));
-                category_styles.add(new Drawer_Items(R.drawable.ic_categories, getString(R.string.categoryStyle6)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle1)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle2)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle3)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle4)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle5)));
+                category_styles.add(new Drawer_Items(R.drawable.kategori, getString(R.string.categoryStyle6)));
     
                 List<Drawer_Items> shop_childs = new ArrayList<>();
                 shop_childs.add(new Drawer_Items(R.drawable.ic_arrow_up, getString(R.string.Newest)));
@@ -1044,7 +1044,7 @@ public class MainActivity extends AppCompatActivity {
 
         String languageCode = ConstantValues.LANGUAGE_CODE;
         if ("".equalsIgnoreCase(languageCode))
-            languageCode = ConstantValues.LANGUAGE_CODE = "en";
+            languageCode = ConstantValues.LANGUAGE_CODE = "in";
         
         super.attachBaseContext(LocaleHelper.wrapLocale(newBase, languageCode));
     }

@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,6 +121,8 @@ public class Update_Account extends Fragment {
         input_last_name.setText(userInfo.getCustomersLastname());
         input_contact_no.setText(userInfo.getCustomersTelephone());
 
+        Log.d("gender", userInfo.getCustomersGender());
+
         if(userInfo.getCustomersGender().equalsIgnoreCase("1")) {
             radioGroup.check(R.id.radioMaleUpdate);
         } else {
@@ -133,8 +136,10 @@ public class Update_Account extends Fragment {
         else {
             // Get the String of Date from userInfo
             String dateString = userInfo.getCustomersDob();
+
+            Locale locale = new Locale("in", "ID");
             // Set Date Format
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", locale);
 
             // Convert String of Date to Date Format
             Date convertedDate = new Date();

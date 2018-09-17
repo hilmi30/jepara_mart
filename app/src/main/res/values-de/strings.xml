@@ -328,6 +328,8 @@
     <string name="incorret_code">Die Zahlung mit einem falschen Code wird den Zahlungsverifizierungsprozess behindern</string>
     <string name="item_received">Artikel erhalten</string>
     <string name="have_you_received">Haben Sie die Waren erhalten?</string>
+    <string name="change_gender">Geschlecht ändern</string>
+    <string name="change_password">Passwort ändern</string>
 
 
 </resources>

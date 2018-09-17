@@ -44,7 +44,7 @@ public class MyAppPrefsManager {
     }
     
     public Integer getUserLanguageId() {
-        return sharedPreferences.getInt(USER_LANGUAGE_ID, 1);
+        return sharedPreferences.getInt(USER_LANGUAGE_ID, 5);
     }
     
     public void setUserLanguageCode(String langCode) {
@@ -53,7 +53,7 @@ public class MyAppPrefsManager {
     }
     
     public String getUserLanguageCode() {
-        return sharedPreferences.getString(USER_LANGUAGE_CODE, "en");
+        return sharedPreferences.getString(USER_LANGUAGE_CODE, "in");
     }
     
     
@@ -101,7 +101,7 @@ public class MyAppPrefsManager {
     }
 
     public String getLocalNotificationsTitle() {
-        return sharedPreferences.getString(LOCAL_NOTIFICATIONS_TITLE, "Android Ecommerce");
+        return sharedPreferences.getString(LOCAL_NOTIFICATIONS_TITLE, "Jepara Mart");
     }
 
     public void setLocalNotificationsDuration(String localNotificationsDuration) {
@@ -119,7 +119,7 @@ public class MyAppPrefsManager {
     }
 
     public String getLocalNotificationsDescription() {
-        return sharedPreferences.getString(LOCAL_NOTIFICATIONS_DESCRIPTION, "Check bundle of new Products");
+        return sharedPreferences.getString(LOCAL_NOTIFICATIONS_DESCRIPTION, "Ayo Belanja di Jepara Mart");
     }
 
 }

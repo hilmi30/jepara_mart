@@ -75,7 +75,7 @@
                             android:textSize="13sp"
                             android:textAllCaps="false"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rounded_corners_button_green" />
+                            android:background="@drawable/rounded_corners_button_red" />
 
                     </LinearLayout>
 
@@ -217,6 +217,7 @@
                         android:background="@color/white"
                         android:drawableEnd="@drawable/ic_chevron_down" />
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/refund_policy"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -230,6 +231,7 @@
                         android:background="@color/white"
                         android:drawableEnd="@drawable/ic_chevron_down" />
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/service_terms"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

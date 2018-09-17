@@ -57,7 +57,6 @@ public class UserDetails {
     @Expose
     private List<UserLikedProducts> likedProducts = null;
 
-
     public String getCustomersId() {
         return customersId;
     }

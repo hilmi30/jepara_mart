@@ -326,6 +326,8 @@
     <string name="incorret_code">سيؤدي الدفع باستخدام رمز غير صحيح إلى إعاقة عملية التحقق من الدفع</string>
     <string name="item_received">العناصر المستلمة</string>
     <string name="have_you_received">هل استلمت البضائع؟</string>
+    <string name="change_gender">تغيير الجنس</string>
+    <string name="change_password">تغيير كلمة السر</string>
 
 
 </resources>

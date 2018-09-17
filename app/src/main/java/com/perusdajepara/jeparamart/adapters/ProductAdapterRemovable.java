@@ -155,7 +155,7 @@ public class ProductAdapterRemovable extends RecyclerView.Adapter<ProductAdapter
             // Hide Discount Text and Set Product's Price
             holder.product_tag_discount.setVisibility(View.GONE);
             holder.product_tag_discount_text.setVisibility(View.GONE);
-            holder.product_price_old.setVisibility(View.GONE);
+            holder.product_price_old.setVisibility(View.INVISIBLE);
 //            holder.product_price_new.setText(ConstantValues.CURRENCY_SYMBOL + product.getProductsPrice());
             holder.product_price_new.setText(Utilities.convertToRupiah(product.getProductsPrice()));
         }

@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -301,7 +302,7 @@ public class Product_Description extends Fragment {
         
         productFinalPrice = productBasePrice + attributesPrice;
 //        price_new.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(productFinalPrice));
-        price_new.setText(Utilities.convertToRupiah(String.valueOf(productFinalPrice)));
+        price_new.setText(Utilities.convertToRupiah(String.valueOf(productBasePrice)));
 
         // Check if the User has Liked the Product
         if (productDetails.getIsLiked().equalsIgnoreCase("1")) {
@@ -384,6 +385,9 @@ public class Product_Description extends Fragment {
                     productDetails.setAttributesPrice(String.valueOf(attributesPrice));
                     productDetails.setProductsFinalPrice(String.valueOf(productFinalPrice));
                     productDetails.setTotalPrice(String.valueOf(productFinalPrice));
+                    Log.d("total", ""+productFinalPrice);
+                    Log.d("atribut", ""+attributesPrice);
+                    Log.d("base", ""+productBasePrice);
                     cartProduct.setCustomersBasketProduct(productDetails);
                     cartProduct.setCustomersBasketProductAttributes(selectedAttributesList);
     
@@ -431,7 +435,7 @@ public class Product_Description extends Fragment {
         // Calculate and Set Product's total Price
         productFinalPrice = productBasePrice + attributesPrice;
 //        price_new.setText(ConstantValues.CURRENCY_SYMBOL + new DecimalFormat("#0.00").format(productFinalPrice));
-        price_new.setText(Utilities.convertToRupiah(String.valueOf(productFinalPrice)));
+        price_new.setText(Utilities.convertToRupiah(String.valueOf(productBasePrice)));
         
     }
 

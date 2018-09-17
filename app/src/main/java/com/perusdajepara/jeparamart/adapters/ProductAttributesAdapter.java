@@ -27,6 +27,7 @@ import com.perusdajepara.jeparamart.models.cart_model.CartProductAttributes;
 import com.perusdajepara.jeparamart.models.product_model.Attribute;
 import com.perusdajepara.jeparamart.models.product_model.Option;
 import com.perusdajepara.jeparamart.models.product_model.Value;
+import com.perusdajepara.jeparamart.utils.Utilities;
 
 
 /**
@@ -95,8 +96,7 @@ public class ProductAttributesAdapter extends RecyclerView.Adapter<ProductAttrib
             attributeValueNames.add(attributeValuesList.get(i).getValue()
                                     + " ("
                                     + attributeValuesList.get(i).getPricePrefix()
-                                    + ConstantValues.CURRENCY_SYMBOL
-                                    + attributeValuesList.get(i).getPrice()
+                                    + Utilities.convertToRupiah(attributeValuesList.get(i).getPrice())
                                     +")");
         }
 
@@ -189,8 +189,7 @@ public class ProductAttributesAdapter extends RecyclerView.Adapter<ProductAttrib
                     attribute_value.setText(valueName
                                                 + " ("
                                                 + valuePrefix
-                                                + ConstantValues.CURRENCY_SYMBOL
-                                                + valuePrice
+                                                + Utilities.convertToRupiah(valuePrice)
                                                 +")" );
     
     
