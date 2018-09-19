@@ -134,9 +134,7 @@ public class MainActivity extends AppCompatActivity {
         myAppPrefsManager.setFirstTimeLaunch(false);
         User_Cart_DB.initCartInstance();
     }
-    
-    
-    
+
     //*********** Called when the Activity is first Created ********//
 
     @Override

@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
@@ -48,6 +49,8 @@ import com.perusdajepara.jeparamart.utils.CheckPermissions;
 import com.perusdajepara.jeparamart.utils.Utilities;
 import com.perusdajepara.jeparamart.utils.ImagePicker;
 import com.perusdajepara.jeparamart.utils.ValidateInputs;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -354,14 +357,19 @@ public class Signup extends AppCompatActivity {
             if (requestCode == PICK_IMAGE_ID) {
 
                 // Get the User Selected Image as Bitmap from the static method of ImagePicker class
-                Bitmap bitmap = ImagePicker.getImageFromResult(Signup.this, resultCode, data);
-    
-                // Upload the Bitmap to ImageView
-                user_photo.setImageBitmap(bitmap);
-                
-                // Get the converted Bitmap as Base64ImageString from the static method of Helper class
-                profileImage = Utilities.getBase64ImageStringFromBitmap(bitmap);
-                
+                Bitmap bitmap = null;
+                try {
+                    bitmap = ImagePicker.getImageFromResult(Signup.this, resultCode, data);
+
+                    // Upload the Bitmap to ImageView
+                    user_photo.setImageBitmap(bitmap);
+
+                    // Get the converted Bitmap as Base64ImageString from the static method of Helper class
+                    profileImage = Utilities.getBase64ImageStringFromBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

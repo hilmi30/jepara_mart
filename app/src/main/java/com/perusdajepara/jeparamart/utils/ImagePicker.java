@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class ImagePicker {
     private static final String TAG = "ImagePicker";
     private static final String TEMP_IMG_NAME = "tempImage";
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;
+    private static final int MAX_SIZE = 400;
 
     private static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
 
@@ -52,31 +54,24 @@ public class ImagePicker {
             galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
             galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
         }
-        else if (Build.VERSION.SDK_INT > 19) {
-            galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        }
         else {
             galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
-
 
         // Camera Intent
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra("return_data", true);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getTempFile(context)));
 
-
         // Adding Filesystem and Camera Intents to IntentList
         pickerIntentsList = addIntentToList(context, pickerIntentsList, galleryIntent);
         pickerIntentsList = addIntentToList(context, pickerIntentsList, cameraIntent);
-
 
         // Initializing Chooser Intent
         chooserIntent = new Intent(Intent.createChooser(pickerIntentsList.remove(pickerIntentsList.size() - 1), "Select Source"));
 
         // Adding IntentList of Camera and Filesystem Intents
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, pickerIntentsList.toArray(new Parcelable[]{}));
-
 
         return chooserIntent;
     }
@@ -103,7 +98,7 @@ public class ImagePicker {
     
     //*********** Returns Temp File ********//
 
-    private static File getTempFile(Context context) {
+    public static File getTempFile(Context context) {
         // Create New Temp File
         File imageFile = new File(context.getExternalCacheDir(), TEMP_IMG_NAME);
 
@@ -117,7 +112,7 @@ public class ImagePicker {
     
     //*********** Returns the User Selected Image as Bitmap ********//
 
-    public static Bitmap getImageFromResult(Context context, int resultCode, Intent imageReturnedIntent) {
+    public static Bitmap getImageFromResult(Context context, int resultCode, Intent imageReturnedIntent) throws IOException {
         Bitmap bitmap = null;
         File imageFile = getTempFile(context);
 
@@ -133,7 +128,7 @@ public class ImagePicker {
                 selectedImage = imageReturnedIntent.getData();
             }
 
-            bitmap = getResizedImage(context, selectedImage);
+            bitmap = getResizedBitmap(context, selectedImage, MAX_SIZE);
         }
         return bitmap;
     }
@@ -142,7 +137,25 @@ public class ImagePicker {
     
     //*********** Resize to avoid using too much Memory loading Big Images (2560*1920) ********//
 
-    private static Bitmap getResizedImage(Context context, Uri selectedImage) {
+    private static Bitmap getResizedBitmap(Context context, Uri uriImage, int maxSize) throws IOException {
+
+        Bitmap image = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uriImage);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    public static Bitmap getResizedImage(Context context, Uri selectedImage) {
         Bitmap resizedBitmap = null;
         int[] sampleSizes = new int[]{5, 4, 3, 2, 1};
 

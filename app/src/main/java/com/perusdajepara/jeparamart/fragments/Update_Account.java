@@ -4,20 +4,28 @@ package com.perusdajepara.jeparamart.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -34,11 +42,14 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.perusdajepara.jeparamart.activities.Signup;
 import com.perusdajepara.jeparamart.customs.CircularImageView;
 
 import com.perusdajepara.jeparamart.activities.MainActivity;
 import com.perusdajepara.jeparamart.R;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,6 +59,7 @@ import java.util.Locale;
 import com.perusdajepara.jeparamart.constant.ConstantValues;
 import com.perusdajepara.jeparamart.customs.DialogLoader;
 import com.perusdajepara.jeparamart.databases.User_Info_DB;
+import com.perusdajepara.jeparamart.models.product_model.Image;
 import com.perusdajepara.jeparamart.models.user_model.UserData;
 import com.perusdajepara.jeparamart.models.user_model.UserDetails;
 import com.perusdajepara.jeparamart.network.APIClient;
@@ -65,8 +77,10 @@ public class Update_Account extends Fragment {
     String customers_id;
     String profileImageCurrent = "";
     String profileImageChanged = "";
+    String mCurrentPhotoPath = "";
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
-    
+    private static final int PICK_GALLERY_ID = 350;
+
     Button updateInfoBtn;
     CircularImageView user_photo;
     FloatingActionButton user_photo_edit_fab;
@@ -75,6 +89,7 @@ public class Update_Account extends Fragment {
     RadioButton radioButton;
 
     DialogLoader dialogLoader;
+    Bitmap bitmap;
 
     UserDetails userInfo;
     User_Info_DB userInfoDB = new User_Info_DB();
@@ -94,7 +109,7 @@ public class Update_Account extends Fragment {
 
 
         // Binding Layout Views
-        user_photo = (CircularImageView) rootView.findViewById(R.id.user_photo);
+        user_photo = (CircularImageView) rootView.findViewById(R.id.user_photo_edit);
         input_first_name = (EditText) rootView.findViewById(R.id.firstname);
         input_last_name = (EditText) rootView.findViewById(R.id.lastname);
         input_dob = (EditText) rootView.findViewById(R.id.dob);
@@ -121,7 +136,6 @@ public class Update_Account extends Fragment {
         input_last_name.setText(userInfo.getCustomersLastname());
         input_contact_no.setText(userInfo.getCustomersTelephone());
 
-        Log.d("gender", userInfo.getCustomersGender());
 
         if(userInfo.getCustomersGender().equalsIgnoreCase("1")) {
             radioGroup.check(R.id.radioMaleUpdate);
@@ -161,7 +175,7 @@ public class Update_Account extends Fragment {
                     .placeholder(R.drawable.profile)
                     .error(R.drawable.profile)
                     .into(user_photo);
-            
+
         }
         else {
             profileImageCurrent = "";
@@ -227,7 +241,7 @@ public class Update_Account extends Fragment {
             @Override
             public void onClick(View view) {
                 
-                if (CheckPermissions.is_CAMERA_PermissionGranted()  &&  CheckPermissions.is_STORAGE_PermissionGranted()) {
+                if (CheckPermissions.is_CAMERA_PermissionGranted() && CheckPermissions.is_STORAGE_PermissionGranted()) {
                     pickImage();
                 }
                 else {
@@ -273,18 +287,19 @@ public class Update_Account extends Fragment {
     //*********** Picks User Profile Image from Gallery or Camera ********//
 
     private void pickImage() {
+
         if (Build.VERSION.SDK_INT <= 24) {
-            // Intent with Image Picker Apps from the static method of ImagePicker class
+
+            // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
             Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
-    
+
             // Start Activity with Image Picker Intent
             startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+
         }
         
     }
-    
-    
-    
+
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
     
     @Override
@@ -294,21 +309,70 @@ public class Update_Account extends Fragment {
             if (requestCode == PICK_IMAGE_ID) {
 
                 // Get the User Selected Image as Bitmap from the static method of ImagePicker class
-                Bitmap bitmap = ImagePicker.getImageFromResult(this.getActivity(), resultCode, data);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = ImagePicker.getImageFromResult(getContext(), resultCode, data);
 
-                // Upload the Bitmap to ImageView
-                user_photo.setImageBitmap(bitmap);
+                    // Upload the Bitmap to ImageView
+                    user_photo.setImageBitmap(bitmap);
 
-                // Get the converted Bitmap as Base64ImageString from the static method of Helper class
-                profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
+                    // Get the converted Bitmap as Base64ImageString from the static method of Helper class
+                    profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-    
-    
-    
+
+
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = user_photo.getWidth();
+        int targetH = user_photo.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+        // Get the converted Bitmap as Base64ImageString from the static method of Helper class
+        profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
+        Log.d("base", profileImageChanged);
+
+        user_photo.setImageBitmap(bitmap);
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+
     //*********** This method is invoked for every call on requestPermissions(Activity, String[], int) ********//
-    
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

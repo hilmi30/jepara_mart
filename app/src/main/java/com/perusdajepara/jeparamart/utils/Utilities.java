@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -535,26 +536,25 @@ public class Utilities {
     //*********** Converts any Bitmap to Base64String ********//
 
     public static String getBase64ImageStringFromBitmap(Bitmap bitmap) {
+
         String imgString;
-        
+
         if(bitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            
+
             byte[] profileImage = byteArrayOutputStream.toByteArray();
 
             imgString = "data:image/jpeg;base64,"+Base64.encodeToString(profileImage, Base64.NO_WRAP);
-            
+
         }
         else{
             imgString = "";
         }
-        
-        
+
+
         return imgString;
     }
-
-
 
     //*********** Converts a Base64String to the Bitmap ********//
 

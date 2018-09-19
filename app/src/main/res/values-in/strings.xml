@@ -257,12 +257,12 @@
     <string name="not_include_code">Pembayaran total Anda tidak termasuk kode pembayaran</string>
     <string name="payment_will_be_added">Pembayaran total Anda akan ditambahkan ke kode pembayaran</string>
     <string name="your_total_price">Harga Total Anda</string>
-    <string name="please_transfer_via_our_account">Silakan transfer melalui akun kami</string>
+    <string name="please_transfer_via_our_account">Silahkan transfer melalui rekening kami</string>
     <string name="your_order_id">ID Pesanan Anda</string>
     <string name="jepara_mart_will_verify_after_you_make_payment">Jepara Mart akan memverifikasi setelah Anda melakukan pembayaran</string>
     <string name="copy">SALIN</string>
     <string name="payment_instructions">Instruksi Pembayaran</string>
-    <string name="please_transfer_3_digits">Harap transfer sesuai dengan 3 digit terakhir dari total pembayaran agar tidak menghalangi proses verifikasi</string>
+    <string name="please_transfer_3_digits">Harap transfer sesuai dengan 3 digit terakhir dari total pembayaran agar tidak menghambat proses verifikasi</string>
     <string name="problem">"Jika Anda mengalami masalah. Silakan hubungi kami "</string>
     <string name="payment_code">Kode Pembayaran</string>
     <string name="item_confirmation_received">Konfirmasi barang diterima</string>
