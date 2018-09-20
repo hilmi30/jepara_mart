@@ -52,6 +52,8 @@ import com.perusdajepara.jeparamart.app.MyAppPrefsManager;
 import com.perusdajepara.jeparamart.receivers.AlarmReceiver;
 import com.perusdajepara.jeparamart.utils.NotificationScheduler;
 import com.perusdajepara.jeparamart.utils.Utilities;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -421,11 +423,16 @@ public class SettingsFragment extends Fragment {
                 // Set User's Name, Email and Photo
                 profile_email.setText(userInfo.getCustomersEmailAddress());
                 profile_name.setText(userInfo.getCustomersFirstname()+" "+userInfo.getCustomersLastname());
-                Glide.with(getContext())
-                        .load(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture()).asBitmap()
+
+                // Picasso.with(getContext()).invalidate(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture());
+                Picasso.with(getContext())
+                        .load(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture())
+                        // .networkPolicy(NetworkPolicy.NO_CACHE)
                         .placeholder(R.drawable.profile)
                         .error(R.drawable.profile)
                         .into(profile_image);
+
+                Log.d("pengaturan", ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture());
     
                 btn_edit_profile.setText(getString(R.string.edit_profile));
                 btn_edit_profile.setBackground(getResources().getDrawable(R.drawable.rounded_corners_button_red));

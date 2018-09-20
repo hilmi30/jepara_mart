@@ -67,6 +67,9 @@ import com.perusdajepara.jeparamart.utils.CheckPermissions;
 import com.perusdajepara.jeparamart.utils.Utilities;
 import com.perusdajepara.jeparamart.utils.ImagePicker;
 import com.perusdajepara.jeparamart.utils.ValidateInputs;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -167,11 +170,15 @@ public class Update_Account extends Fragment {
         }
 
 
+        Log.d("userPhoto", ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture());
+
         // Set User's Photo
         if (!TextUtils.isEmpty(userInfo.getCustomersPicture())  &&  userInfo.getCustomersPicture() != null){
             profileImageCurrent = userInfo.getCustomersPicture();
-            Glide.with(this)
-                    .load(ConstantValues.ECOMMERCE_URL+profileImageCurrent).asBitmap()
+            // Picasso.with(getContext()).invalidate(ConstantValues.ECOMMERCE_URL+profileImageCurrent);
+            Picasso.with(getContext())
+                    .load(ConstantValues.ECOMMERCE_URL+profileImageCurrent)
+                    // .networkPolicy(NetworkPolicy.NO_CACHE)
                     .placeholder(R.drawable.profile)
                     .error(R.drawable.profile)
                     .into(user_photo);
@@ -179,8 +186,8 @@ public class Update_Account extends Fragment {
         }
         else {
             profileImageCurrent = "";
-            Glide.with(this)
-                    .load(R.drawable.profile).asBitmap()
+            Picasso.with(getContext())
+                    .load(R.drawable.profile)
                     .placeholder(R.drawable.profile)
                     .error(R.drawable.profile)
                     .into(user_photo);
@@ -451,6 +458,7 @@ public class Update_Account extends Fragment {
                         // User's Info has been Updated.
                         
                         UserDetails userDetails = response.body().getData().get(0);
+                        Log.d("update", userDetails.getCustomersPicture());
 
                         // Update in Local Databases as well
                         userInfoDB.updateUserData(userDetails);
@@ -458,6 +466,7 @@ public class Update_Account extends Fragment {
     
                         // Get the User's Info from the Local Databases User_Info_DB
                         userInfo = userInfoDB.getUserData(customers_id);
+                        Log.d("dbUserInfo", userInfo.getCustomersPicture());
                         
                         // Set the userName in SharedPreferences
                         SharedPreferences.Editor editor = getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).edit();

@@ -32,7 +32,7 @@ public class ImagePicker {
     private static final String TAG = "ImagePicker";
     private static final String TEMP_IMG_NAME = "tempImage";
     private static final int DEFAULT_MIN_WIDTH_QUALITY = 400;
-    private static final int MAX_SIZE = 400;
+    private static final int MAX_SIZE = 300;
 
     private static int minWidthQuality = DEFAULT_MIN_WIDTH_QUALITY;
 

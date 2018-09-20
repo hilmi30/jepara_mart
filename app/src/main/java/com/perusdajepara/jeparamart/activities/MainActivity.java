@@ -22,6 +22,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,6 +83,8 @@ import com.perusdajepara.jeparamart.fragments.My_Orders;
 import com.perusdajepara.jeparamart.fragments.SearchFragment;
 import com.perusdajepara.jeparamart.fragments.WishList;
 import com.perusdajepara.jeparamart.models.drawer_model.Drawer_Items;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -113,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Drawer_Items> listDataHeader = new ArrayList<>();
     Map<Drawer_Items, List<Drawer_Items>> listDataChild = new HashMap<>();
-    
+
+    User_Info_DB userInfoDB = new User_Info_DB();
     
     
     //*********** Called when the Activity is becoming Visible to the User ********//
@@ -133,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     
         myAppPrefsManager.setFirstTimeLaunch(false);
         User_Cart_DB.initCartInstance();
+
     }
 
     //*********** Called when the Activity is first Created ********//
@@ -264,14 +269,21 @@ public class MainActivity extends AppCompatActivity {
                 User_Info_DB userInfoDB = new User_Info_DB();
                 UserDetails userInfo = userInfoDB.getUserData(sharedPreferences.getString("userID", null));
 
+                Log.d("userId", sharedPreferences.getString("userID", null));
+
                 // Set User's Name, Email and Photo
                 drawer_profile_email.setText(userInfo.getCustomersEmailAddress());
                 drawer_profile_name.setText(userInfo.getCustomersFirstname()+" "+userInfo.getCustomersLastname());
-                Glide.with(this)
-                        .load(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture()).asBitmap()
+
+                // Picasso.with(this).invalidate(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture());
+                Picasso.with(this)
+                        .load(ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture())
+                        // .networkPolicy(NetworkPolicy.NO_CACHE)
                         .placeholder(R.drawable.profile)
                         .error(R.drawable.profile)
                         .into(drawer_profile_image);
+
+                Log.d("img", ConstantValues.ECOMMERCE_URL+userInfo.getCustomersPicture());
 
             }
             else {
@@ -527,6 +539,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
     
         if(selectedItem.equalsIgnoreCase(getString(R.string.actionHome))) {
+
             mSelectedItem = selectedItem;
         
             // Navigate to any selected HomePage Fragment
@@ -990,6 +1003,9 @@ public class MainActivity extends AppCompatActivity {
         else if (selectedItem.equalsIgnoreCase(getString(R.string.actionLogout))) {
             mSelectedItem = selectedItem;
 
+            My_Cart.ClearCart();
+            // userInfoDB.deleteUserData("12");
+
             // Edit UserID in SharedPreferences
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("userID", "");
@@ -1001,8 +1017,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Set isLogged_in of ConstantValues
             ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
-
-            My_Cart.ClearCart();
 
             // Navigate to Login Activity
             startActivity(new Intent(MainActivity.this, Login.class));
