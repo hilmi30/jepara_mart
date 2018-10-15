@@ -220,7 +220,7 @@ public class Shipping_Address extends Fragment {
                             if (!selectedItem.equalsIgnoreCase("Other")) {
                                 
                                 for (int i = 0; i< provList.size(); i++) {
-                                    if (provList.get(i).getCountriesName().equalsIgnoreCase(selectedItem)) {
+                                    if (provList.get(i).getProvNama().equalsIgnoreCase(selectedItem)) {
                                         // Get the ID of selected Country
                                         provID = provList.get(i).getProvId();
                                     }
@@ -310,7 +310,7 @@ public class Shipping_Address extends Fragment {
                             if (!kabAdapter.getItem(position).equalsIgnoreCase("Other")) {
                                 
                                 for (int i = 0; i< kabList.size(); i++) {
-                                    if (kabList.get(i).getZoneName().equalsIgnoreCase(selectedItem)) {
+                                    if (kabList.get(i).getKabNama().equalsIgnoreCase(selectedItem)) {
                                         // Get the ID of selected Country
                                         zoneID = kabList.get(i).getKabId();
                                     }
@@ -352,7 +352,7 @@ public class Shipping_Address extends Fragment {
                     TextView dialog_title = (TextView) dialogView.findViewById(R.id.dialog_title);
                     ListView dialog_list = (ListView) dialogView.findViewById(R.id.dialog_list);
 
-                    dialog_title.setText(getString(R.string.country));
+                    dialog_title.setText(getString(R.string.subdistrict));
                     dialog_list.setVerticalScrollBarEnabled(true);
                     dialog_list.setAdapter(kecAdapter);
 
@@ -480,7 +480,7 @@ public class Shipping_Address extends Fragment {
     
                         // Add the Country Names to the provNames List
                         for (int i = 0; i< provList.size(); i++) {
-                            provNames.add(provList.get(i).getCountriesName());
+                            provNames.add(provList.get(i).getProvNama());
                         }
     
                         provNames.add("Other");
@@ -532,11 +532,9 @@ public class Shipping_Address extends Fragment {
     
                         // Add the Zone Names to the kabNames List
                         for (int i = 0; i< kabList.size(); i++){
-                            kabNames.add(kabList.get(i).getZoneName());
+                            kabNames.add(kabList.get(i).getKabNama());
                         }
-    
-                        kabNames.add("Other");
-                        
+
                     }
                     else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
