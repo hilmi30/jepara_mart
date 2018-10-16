@@ -280,10 +280,12 @@ public class Order_Details extends Fragment {
             transferLayout.setVisibility(View.GONE);
         }
 
-        if(orderDetails.getOrdersStatusId().equalsIgnoreCase("4")) {
+        if(orderDetails.getOrdersStatusId().equalsIgnoreCase("1")) {
             itemConfirm.setEnabled(true);
+            itemConfirm.setVisibility(View.VISIBLE);
         } else {
             itemConfirm.setEnabled(false);
+            itemConfirm.setVisibility(View.GONE);
         }
 
         return rootView;

@@ -330,6 +330,8 @@
     <string name="have_you_received">Haben Sie die Waren erhalten?</string>
     <string name="change_gender">Geschlecht ändern</string>
     <string name="change_password">Passwort ändern</string>
+    <string name="we_will_send_email">We will send an email to change your password</string>
+    <string name="please_check_your_email_and_change_your_password">Please check your email and change your password</string>
 
 
 </resources>

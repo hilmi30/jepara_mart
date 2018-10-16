@@ -12,27 +12,27 @@
 
 
     <!--  Main Strings -->
-    <string name="actionSearch"> SEARCH </string>
-    <string name="actionLanguage"> LANGUAGE </string>
+    <string name="actionSearch">Search</string>
+    <string name="actionLanguage">Language</string>
 
     <string name="actionHome"> HOME </string>
     <string name="actionCategory"> CATEGORY </string>
-    <string name="actionCategories"> CATEGORIES </string>
-    <string name="actionShop"> SHOP </string>
-    <string name="actionCart"> MY CART </string>
-    <string name="actionOrders"> MY ORDERS </string>
-    <string name="actionAccount"> MY ACCOUNT </string>
-    <string name="actionAddresses"> MY ADDRESSES </string>
-    <string name="actionFavourites"> MY FAVORITES </string>
-    <string name="actionSettings"> SETTINGS </string>
-    <string name="actionNews"> NEWS </string>
-    <string name="actionIntro"> INTRO </string>
-    <string name="actionAbout"> ABOUT US </string>
-    <string name="actionContactUs"> CONTACT US </string>
-    <string name="actionShareApp"> SHARE APP </string>
-    <string name="actionRateApp"> RATE APP </string>
-    <string name="actionLogin"> LOGIN </string>
-    <string name="actionLogout"> LOGOUT </string>
+    <string name="actionCategories">Categories</string>
+    <string name="actionShop">Shop</string>
+    <string name="actionCart">My Cart</string>
+    <string name="actionOrders">My Orders</string>
+    <string name="actionAccount">My Account</string>
+    <string name="actionAddresses">My Addresses</string>
+    <string name="actionFavourites">My Favorite</string>
+    <string name="actionSettings">Settings</string>
+    <string name="actionNews">News</string>
+    <string name="actionIntro">Intro</string>
+    <string name="actionAbout">About Us</string>
+    <string name="actionContactUs">Contact Us</string>
+    <string name="actionShareApp">Share App</string>
+    <string name="actionRateApp">Rate App</string>
+    <string name="actionLogin">Login</string>
+    <string name="actionLogout">Logout</string>
 
     <string name="homeStyle1"> HOME 1 </string>
     <string name="homeStyle2"> HOME 2 </string>
@@ -338,7 +338,7 @@
     <string name="jepara_mart" translatable="false">Jepara Mart</string>
     <string name="problem">If you experience problems. Please contact us</string>
     <string name="payment_code">Payment Code</string>
-    <string name="item_confirmation_received">Item confirmation received</string>
+    <string name="item_confirmation_received">I have transferred</string>
     <string name="confirm_imm">Confirm immediately if the item has arrived</string>
     <string name="item_received">Items Received</string>
     <string name="have_you_received">Have you received the goods?</string>

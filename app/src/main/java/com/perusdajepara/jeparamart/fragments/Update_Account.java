@@ -250,6 +250,7 @@ public class Update_Account extends Fragment {
                 
                 if (CheckPermissions.is_CAMERA_PermissionGranted() && CheckPermissions.is_STORAGE_PermissionGranted()) {
                     pickImage();
+                    // Toast.makeText(getContext(), "cek", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     requestPermissions
@@ -294,17 +295,11 @@ public class Update_Account extends Fragment {
     //*********** Picks User Profile Image from Gallery or Camera ********//
 
     private void pickImage() {
+        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
+        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
 
-        if (Build.VERSION.SDK_INT <= 24) {
-
-            // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
-            Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
-
-            // Start Activity with Image Picker Intent
-            startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
-
-        }
-        
+        // Start Activity with Image Picker Intent
+        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//

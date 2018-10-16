@@ -337,13 +337,11 @@ public class Signup extends AppCompatActivity {
     //*********** Picks User Profile Image from Gallery or Camera ********//
 
     private void pickImage() {
-        if (Build.VERSION.SDK_INT <= 24) {
-            // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
-            Intent chooseImageIntent = ImagePicker.getImagePickerIntent(Signup.this);
-    
-            // Start Activity with Image Picker Intent
-            startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
-        }
+        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
+        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(Signup.this);
+
+        // Start Activity with Image Picker Intent
+        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
     }
     
     

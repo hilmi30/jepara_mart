@@ -360,10 +360,10 @@ public class MainActivity extends AppCompatActivity {
                 listDataHeader.add(new Drawer_Items(R.drawable.alamatku, getString(R.string.actionAddresses)));
             if (appSettings.getWishListPage() == 1)
                 listDataHeader.add(new Drawer_Items(R.drawable.favorite, getString(R.string.actionFavourites)));
-            if (appSettings.getIntroPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
-            if (appSettings.getNewsPage() == 1)
-                listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
+//            if (appSettings.getIntroPage() == 1)
+//                listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
+//            if (appSettings.getNewsPage() == 1)
+//                listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
             if (appSettings.getContactUsPage() == 1)
                 listDataHeader.add(new Drawer_Items(R.drawable.hubungi, getString(R.string.actionContactUs)));
             if (appSettings.getAboutUsPage() == 1)
@@ -424,8 +424,8 @@ public class MainActivity extends AppCompatActivity {
             listDataHeader.add(new Drawer_Items(R.drawable.orderku, getString(R.string.actionOrders)));
             listDataHeader.add(new Drawer_Items(R.drawable.alamatku, getString(R.string.actionAddresses)));
             listDataHeader.add(new Drawer_Items(R.drawable.favorite, getString(R.string.actionFavourites)));
-            listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
-            listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
+//            listDataHeader.add(new Drawer_Items(R.drawable.intro2, getString(R.string.actionIntro)));
+//            listDataHeader.add(new Drawer_Items(R.drawable.berita, getString(R.string.actionNews)));
             listDataHeader.add(new Drawer_Items(R.drawable.tentangkami2, getString(R.string.actionAbout)));
             listDataHeader.add(new Drawer_Items(R.drawable.hubungi, getString(R.string.actionContactUs)));
             listDataHeader.add(new Drawer_Items(R.drawable.share, getString(R.string.actionShareApp)));
@@ -1083,6 +1083,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
         MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
         MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+        MenuItem orderItem = menu.findItem(R.id.toolbar_order);
 
         languageItem.setVisible(false);
 
@@ -1132,10 +1133,12 @@ public class MainActivity extends AppCompatActivity {
             MenuItem languageItem = menu.findItem(R.id.toolbar_ic_language);
             MenuItem searchItem = menu.findItem(R.id.toolbar_ic_search);
             MenuItem cartItem = menu.findItem(R.id.toolbar_ic_cart);
+            MenuItem orderItem = menu.findItem(R.id.toolbar_order);
 
             languageItem.setVisible(true);
             searchItem.setVisible(false);
             cartItem.setVisible(false);
+            orderItem.setVisible(false);
 
         }
         else {
@@ -1233,6 +1236,15 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.main_fragment, fragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(getString(R.string.actionHome)).commit();
+                break;
+
+            case R.id.toolbar_order:
+                // Navigate to Order Fragment
+                fragment = new My_Orders();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_fragment, fragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(getString(R.string.actionOrders)).commit();
                 break;
 
             default:

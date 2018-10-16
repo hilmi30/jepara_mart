@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:itemIconTint="@color/black"
-            app:itemTextColor="@color/black"
+            app:itemTextColor="@color/textColorSecondary"
             android:background="@color/colorPrimaryDark"
             app:theme="@style/MyNavigationDrawer" >
 
@@ -41,6 +41,7 @@
                     android:layout_height="150dp">
 
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/drawer_header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -50,6 +51,7 @@
                         android:tint="@color/black" />
 
                     <LinearLayout
+                        android:background="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
@@ -77,6 +79,7 @@
                             android:gravity="center_vertical">
 
                             <TextView
+                                android:visibility="gone"
                                 android:id="@+id/drawer_profile_welcome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

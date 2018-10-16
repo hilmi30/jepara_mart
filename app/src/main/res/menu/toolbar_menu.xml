@@ -22,4 +22,11 @@
         android:actionLayout="@layout/layout_animated_ic_cart"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/toolbar_order"
+        android:title="@string/actionOrders"
+        android:icon="@drawable/ic_assignment_white_24dp"
+        android:actionLayout="@layout/layout_animated_ic_cart"
+        app:showAsAction="always" />
+
 </menu>
