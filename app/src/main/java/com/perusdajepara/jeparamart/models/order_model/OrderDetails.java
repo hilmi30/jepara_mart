@@ -220,6 +220,78 @@ public class OrderDetails implements Parcelable {
     @Expose
     private String rekening;
 
+    @SerializedName("customers_long")
+    @Expose
+    private String customersLong;
+
+    @SerializedName("customers_lat")
+    @Expose
+    private String customersLat;
+
+    @SerializedName("delivery_long")
+    @Expose
+    private String deliveryLong;
+
+    @SerializedName("delivery_lat")
+    @Expose
+    private String deliveryLat;
+
+    @SerializedName("billing_long")
+    @Expose
+    private String billingLong;
+
+    @SerializedName("billing_lat")
+    @Expose
+    private String billingLat;
+
+    public String getCustomersLong() {
+        return customersLong;
+    }
+
+    public void setCustomersLong(String customersLong) {
+        this.customersLong = customersLong;
+    }
+
+    public String getCustomersLat() {
+        return customersLat;
+    }
+
+    public void setCustomersLat(String customersLat) {
+        this.customersLat = customersLat;
+    }
+
+    public String getDeliveryLong() {
+        return deliveryLong;
+    }
+
+    public void setDeliveryLong(String deliveryLong) {
+        this.deliveryLong = deliveryLong;
+    }
+
+    public String getDeliveryLat() {
+        return deliveryLat;
+    }
+
+    public void setDeliveryLat(String deliveryLat) {
+        this.deliveryLat = deliveryLat;
+    }
+
+    public String getBillingLong() {
+        return billingLong;
+    }
+
+    public void setBillingLong(String billingLong) {
+        this.billingLong = billingLong;
+    }
+
+    public String getBillingLat() {
+        return billingLat;
+    }
+
+    public void setBillingLat(String billingLat) {
+        this.billingLat = billingLat;
+    }
+
     public String getPaymentCode() {
         return paymentCode;
     }

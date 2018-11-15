@@ -13,9 +13,14 @@
             android:id="@+id/splash_loadingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageView
             android:layout_centerInParent="true"
-            android:indeterminateTintMode="src_in"
-            android:indeterminateTint="@color/white"/>
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/jmartlogo"/>
 
     </RelativeLayout>
 

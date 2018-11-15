@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,6 +64,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     View parentView;
     Toolbar toolbar;
     ActionBar actionBar;
+    ImageView jmartLogo;
 
     EditText user_email, user_password;
     TextView forgotPasswordText, signupText;
@@ -98,8 +100,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         
         setContentView(R.layout.login);
-        
 
+        jmartLogo = findViewById(R.id.jmart_logo);
+        jmartLogo.setVisibility(View.GONE);
 
         // setting Toolbar
         toolbar = (Toolbar) findViewById(R.id.myToolbar);
@@ -364,10 +367,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         editor = sharedPreferences.edit();
                         editor.putString("userID", userDetails.getCustomersId());
                         editor.putString("userEmail", userDetails.getCustomersEmailAddress());
-                        Log.d("tes", userDetails.getCustomersEmailAddress());
                         editor.putString("userName", userDetails.getCustomersFirstname()+" "+userDetails.getCustomersLastname());
                         editor.putString("userDefaultAddressID", userDetails.getCustomersDefaultAddressId());
                         editor.putBoolean("isLogged_in", true);
+                        editor.putString("isKurir", userDetails.getIsKurir());
                         editor.apply();
     
                         // Set UserLoggedIn in MyAppPrefsManager

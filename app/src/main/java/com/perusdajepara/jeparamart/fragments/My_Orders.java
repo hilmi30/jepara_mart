@@ -1,6 +1,7 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -48,6 +49,7 @@ public class My_Orders extends Fragment {
 
     DialogLoader dialogLoader;
     OrdersListAdapter ordersListAdapter;
+    String kurir;
 
     List<OrderDetails> ordersList = new ArrayList<>();
 
@@ -59,10 +61,12 @@ public class My_Orders extends Fragment {
 
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionOrders));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
-        
+        kurir = getArguments().getString("kurir");
+
         
         // Binding Layout Views
         emptyRecord = (TextView) rootView.findViewById(R.id.empty_record);
@@ -107,7 +111,7 @@ public class My_Orders extends Fragment {
 
 
         // Initialize the OrdersListAdapter for RecyclerView
-        ordersListAdapter = new OrdersListAdapter(getContext(), customerID, ordersList);
+        ordersListAdapter = new OrdersListAdapter(getContext(), customerID, ordersList, kurir);
 
         // Set the Adapter and LayoutManager to the RecyclerView
         orders_recycler.setAdapter(ordersListAdapter);
@@ -168,6 +172,7 @@ public class My_Orders extends Fragment {
 
             @Override
             public void onFailure(Call<OrderData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });

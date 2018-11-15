@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mapbox="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/windowBackground" >
+    android:background="@color/windowBackground">
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_view_address"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,23 +174,35 @@
                 android:layout_marginTop="@dimen/input_field_margin"
                 android:background="@drawable/rounded_corners_edittext_dark" />
 
-            <!--<EditText
-                android:id="@+id/suburb"
+            <TextView
+                android:paddingTop="30dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/input_field_height"
-                android:hint="@string/suburb"
-                android:inputType="textNoSuggestions"
-                android:textAlignment="viewStart"
-                android:textColor="@color/textColorSecondary"
-                android:textColorHint="@color/textColorSecondaryLight"
-                android:drawableStart="@drawable/ic_near"
-                android:drawablePadding="15dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:gravity="start|center_vertical"
-                android:layout_marginTop="@dimen/input_field_margin"
-                android:background="@drawable/rounded_corners_edittext_dark" />-->
+                android:layout_height="wrap_content"
+                android:text="@string/set_location"/>
 
+            <TextView
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deskripsi_titik_kirim"/>
+
+            <com.mapbox.mapboxsdk.maps.MapView
+                android:id="@+id/mapViewAddress"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                mapbox:mapbox_styleUrl="mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue" />
+
+            <Button
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:enabled="false"
+                android:clickable="false"
+                android:id="@+id/reset_coor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reset"/>
 
             <LinearLayout
                 android:id="@+id/default_shipping_layout"
@@ -218,6 +232,7 @@
 
 
     <LinearLayout
+        android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

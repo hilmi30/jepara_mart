@@ -20,13 +20,13 @@
         android:title="@string/actionCart"
         android:icon="@drawable/toggle_ic_cart"
         android:actionLayout="@layout/layout_animated_ic_cart"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/toolbar_order"
-        android:title="@string/actionOrders"
-        android:icon="@drawable/ic_assignment_white_24dp"
-        android:actionLayout="@layout/layout_animated_ic_cart"
-        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/toolbar_order"-->
+        <!--android:title="@string/actionOrders"-->
+        <!--android:icon="@drawable/ic_assignment_white_24dp"-->
+        <!--android:actionLayout="@layout/layout_animated_ic_cart"-->
+        <!--app:showAsAction="never" />-->
 
 </menu>

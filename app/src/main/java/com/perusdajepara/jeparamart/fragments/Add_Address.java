@@ -1,10 +1,12 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -22,12 +24,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.perusdajepara.jeparamart.activities.MainActivity;
 import com.perusdajepara.jeparamart.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.perusdajepara.jeparamart.customs.DialogLoader;
 import com.perusdajepara.jeparamart.models.address_model.AddressData;
 import com.perusdajepara.jeparamart.models.address_model.Kabupaten;
 import com.perusdajepara.jeparamart.models.address_model.Kecamatan;
@@ -47,11 +55,12 @@ public class Add_Address extends Fragment {
 
     View rootView;
     Boolean isUpdate;
+    MapboxMap mapbox;
 
     String customerID, addressID;
     String selectedKabID, selectedProvID, selectedKecID;
 
-    Button saveAddressBtn;
+    Button saveAddressBtn, resetBtn;
     LinearLayout default_shipping_layout;
     EditText input_firstname, input_lastname, input_address, input_prov, input_kab, input_city, input_kec, input_postcode;
     
@@ -67,6 +76,12 @@ public class Add_Address extends Fragment {
     List<ProvinsiDetails> provList = new ArrayList<>();
     List<KecamatanDetails> kecList = new ArrayList<>();
 
+    DialogLoader dialogLoader;
+    private MapView mapView;
+    NestedScrollView scrollView;
+    Double lat, lng, defLat, defLng;
+    CameraPosition cameraPosition;
+    MarkerOptions markerOptions;
 
 
     @Nullable
@@ -78,10 +93,14 @@ public class Add_Address extends Fragment {
         Bundle addressInfo = getArguments();
         isUpdate = addressInfo.getBoolean("isUpdate");
 
+        dialogLoader = new DialogLoader(getContext());
+        scrollView = rootView.findViewById(R.id.scroll_view_address);
+        resetBtn = rootView.findViewById(R.id.reset_coor);
+
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
 
-        
+
         // Set the Title of Toolbar
         if (isUpdate) {
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.update_address));
@@ -119,10 +138,8 @@ public class Add_Address extends Fragment {
         // Hide the Default Checkbox Layout
         default_shipping_layout.setVisibility(View.GONE);
 
-
         // Request for Provinsi List
         RequestProv();
-
 
         // Check if an existing Address is being Edited
         if (isUpdate) {
@@ -140,17 +157,80 @@ public class Add_Address extends Fragment {
             input_kec.setText(addressInfo.getString("addressKecName"));
             input_city.setText(addressInfo.getString("addressCity"));
             input_postcode.setText(addressInfo.getString("addressPostCode"));
+
+            lat = addressInfo.getDouble("addressLat");
+            lng = addressInfo.getDouble("addressLng");
+
+            defLat = addressInfo.getDouble("addressLat");
+            defLng = addressInfo.getDouble("addressLng");
     
             RequestKab(String.valueOf(selectedProvID));
             RequestKec(String.valueOf(selectedKabID));
         }
         else {
+
+            lat = -6.5804981;
+            lng = 110.6789833;
+
+            defLat = -6.5804981;
+            defLng = 110.6789833;
+
             kabNames.add("Other");
             kecNames.add("Other");
             selectedKabID = "0";
             selectedKecID = "0";
         }
 
+        mapView = (MapView) rootView.findViewById(R.id.mapViewAddress);
+        mapView.onCreate(savedInstanceState);
+        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
+        mapView.getMapAsync(mapboxMap -> {
+
+            mapbox = mapboxMap;
+
+            resetBtn.setEnabled(true);
+            resetBtn.setClickable(true);
+
+            setMarker(lat, lng);
+
+            mapboxMap.addOnMapClickListener(point -> {
+                lat = point.getLatitude();
+                lng = point.getLongitude();
+
+                mapboxMap.clear();
+
+                LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+                markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        .position(latLng)
+                        .title(getString(R.string.your_delivery_point));
+
+                cameraPosition = new CameraPosition.Builder()
+                        .target(latLng) // Sets the new camera position
+                        .build(); // Builds the CameraPosition object from the builder
+
+                mapboxMap.addMarker(markerOptions);
+                mapboxMap.setCameraPosition(cameraPosition);
+            });
+        });
+
+        mapView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    scrollView.requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return mapView.onTouchEvent(event);
+        });
+
+        resetBtn.setOnClickListener(view -> {
+            mapbox.clear();
+            setMarker(defLat, defLng);
+        });
 
 
         // Handle Touch event of input_prov EditText
@@ -414,7 +494,7 @@ public class Add_Address extends Fragment {
                 if (isValidData) {
                     if (isUpdate) {
                         // Update the Address
-                        updateUserAddress(addressID);
+                         updateUserAddress(addressID);
                     } else {
                         // Add a new Address
                         addUserAddress();
@@ -427,11 +507,30 @@ public class Add_Address extends Fragment {
         return rootView;
     }
 
+    private void setMarker(Double lat, Double lng) {
+
+        LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+        markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.your_delivery_point));
+
+        cameraPosition = new CameraPosition.Builder()
+                .target(latLng) // Sets the new camera position
+                .zoom(10) // Sets the zoom to level 10
+                .tilt(20) // Set the camera tilt to 20 degrees
+                .build(); // Builds the CameraPosition object from the builder
+
+        mapbox.addMarker(markerOptions);
+        mapbox.setCameraPosition(cameraPosition);
+    }
 
 
     //*********** Get Provinsi List from the Server ********//
 
     private void RequestProv() {
+
+        dialogLoader.showProgressDialog();
 
         Call<Provinsi> call = APIClient.getInstance()
                 .getProvinsi();
@@ -439,7 +538,9 @@ public class Add_Address extends Fragment {
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
-                
+
+                dialogLoader.hideProgressDialog();
+
                 if (response.isSuccessful()) {
 
                 	// Check the Success status
@@ -471,6 +572,7 @@ public class Add_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Provinsi> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
@@ -482,6 +584,8 @@ public class Add_Address extends Fragment {
 
     private void RequestKec(String kecId) {
 
+        dialogLoader.showProgressDialog();
+
         Call<Kecamatan> call = APIClient.getInstance()
                 .getKecamatan
                         (
@@ -491,6 +595,8 @@ public class Add_Address extends Fragment {
         call.enqueue(new Callback<Kecamatan>() {
             @Override
             public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
+
+                dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
 
@@ -522,12 +628,15 @@ public class Add_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kecamatan> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void RequestKab(String provId) {
+
+        dialogLoader.showProgressDialog();
 
         Call<Kabupaten> call = APIClient.getInstance()
                 .getKabupaten
@@ -538,6 +647,8 @@ public class Add_Address extends Fragment {
         call.enqueue(new Callback<Kabupaten>() {
             @Override
             public void onResponse(Call<Kabupaten> call, Response<Kabupaten> response) {
+
+                dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
 
@@ -569,6 +680,7 @@ public class Add_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kabupaten> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
@@ -593,7 +705,9 @@ public class Add_Address extends Fragment {
                                 selectedProvID,
                                 selectedKabID,
                                 selectedKecID,
-                                customers_default_address_id
+                                customers_default_address_id,
+                                lat.toString(),
+                                lng.toString()
                         );
 
         call.enqueue(new Callback<AddressData>() {
@@ -623,6 +737,7 @@ public class Add_Address extends Fragment {
 
             @Override
             public void onFailure(Call<AddressData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
@@ -650,7 +765,9 @@ public class Add_Address extends Fragment {
                                 selectedProvID,
                                 selectedKabID,
                                 selectedKecID,
-                                customers_default_address_id
+                                customers_default_address_id,
+                                lat.toString(),
+                                lng.toString()
                         );
 
         call.enqueue(new Callback<AddressData>() {
@@ -674,12 +791,59 @@ public class Add_Address extends Fragment {
 
             @Override
             public void onFailure(Call<AddressData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
 
     //*********** Validate Address Form Inputs ********//
 
@@ -708,7 +872,8 @@ public class Add_Address extends Fragment {
         } else if (!ValidateInputs.isValidNumber(input_postcode.getText().toString().trim())) {
             input_postcode.setError(getString(R.string.invalid_post_code));
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }

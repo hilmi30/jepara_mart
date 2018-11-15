@@ -91,6 +91,7 @@ public class Products extends Fragment {
                 MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
             }
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionShop));
+            MainActivity.jmartLogo.setVisibility(View.GONE);
         }
 
 

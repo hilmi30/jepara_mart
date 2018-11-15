@@ -57,6 +57,7 @@ public class My_Cart extends Fragment {
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionCart));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get the List of Cart Items from the Local Databases User_Cart_DB
         cartItemsList = user_cart_db.getCartItems();

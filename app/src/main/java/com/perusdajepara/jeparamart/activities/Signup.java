@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -83,6 +84,7 @@ public class Signup extends AppCompatActivity {
     RadioButton radioButton;
     int selectedRadioId;
     String gender;
+    ImageView jmartLogo;
 
 
     @Override
@@ -100,6 +102,8 @@ public class Signup extends AppCompatActivity {
         actionBar.setTitle(getString(R.string.signup));
         actionBar.setDisplayHomeAsUpEnabled(false);
 
+        jmartLogo = findViewById(R.id.jmart_logo);
+        jmartLogo.setVisibility(View.GONE);
 
         // Binding Layout Views
         user_photo = (CircularImageView) findViewById(R.id.user_photo);

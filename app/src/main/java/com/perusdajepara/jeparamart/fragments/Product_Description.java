@@ -140,14 +140,13 @@ public class Product_Description extends Fragment {
         
             if (getArguments().containsKey("itemID")) {
                 productID = getArguments().getInt("itemID");
-            
+
                 // Request Product Details
                 RequestProductDetail(productID);
-            
             }
             else if (getArguments().containsKey("productDetails")) {
                 productDetails = getArguments().getParcelable("productDetails");
-            
+
                 // Set Product Details
                 setProductDetails(productDetails);
             }
@@ -185,7 +184,6 @@ public class Product_Description extends Fragment {
             product_likes.setText(getString(R.string.likes) + " (0)");
         }
 
-
         // Check Discount on Product with the help of static method of Helper class
         String discount = Utilities.checkDiscount(productDetails.getProductsPrice(), productDetails.getDiscountPrice());
 
@@ -210,23 +208,34 @@ public class Product_Description extends Fragment {
             productBasePrice = Double.parseDouble(productDetails.getProductsPrice());
         }
 
-
+        Boolean isItemInCart = My_Cart.checkCartHasProduct(productDetails.getProductsId());
 
         // Check if the Product is Out of Stock
-        if (productDetails.getProductsQuantity() < 1) {
+        if (productDetails.getProductsQuantity() < 1 && !isItemInCart) {
             product_stock.setText(getString(R.string.outOfStock));
             productCartBtn.setText(getString(R.string.outOfStock));
             product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentRed));
             productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_red));
 
-        }
-        else {
+        } else if(productDetails.getProductsQuantity() > 1 && !isItemInCart) {
             product_stock.setText(getString(R.string.in_stock));
             productCartBtn.setText(getString(R.string.addToCart));
             product_stock.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccentBlue));
             productCartBtn.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.rounded_corners_button_accent));
         }
 
+        // cek jika barang ada di cart
+        if(productDetails.getProductsQuantity() > 1 && isItemInCart) {
+            productCartBtn.setEnabled(false);
+            productCartBtn.setClickable(false);
+            productCartBtn.setBackgroundColor(getResources().getColor(R.color.textColorPrimaryDark));
+            productCartBtn.setText(getString(R.string.already_in_cart));
+        } else {
+            productCartBtn.setEnabled(true);
+            productCartBtn.setClickable(true);
+            productCartBtn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            productCartBtn.setText(getString(R.string.addToCart));
+        }
 
 
         // Check if the Product is Newly Added with the help of static method of Helper class
@@ -369,7 +378,6 @@ public class Product_Description extends Fragment {
         });
 
 
-
         // Handle Click event of productCartBtn Button
         productCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -401,7 +409,12 @@ public class Product_Description extends Fragment {
     
                     // Recreate the OptionsMenu
                     ((MainActivity) getContext()).invalidateOptionsMenu();
-    
+
+                    productCartBtn.setEnabled(false);
+                    productCartBtn.setClickable(false);
+                    productCartBtn.setBackgroundColor(getResources().getColor(R.color.textColorPrimaryDark));
+                    productCartBtn.setText(getString(R.string.already_in_cart));
+
                     Snackbar.make(view, getContext().getString(R.string.item_added_to_cart), Snackbar.LENGTH_SHORT).show();
                 }
 
@@ -538,6 +551,7 @@ public class Product_Description extends Fragment {
 
         dialogLoader.showProgressDialog();
 
+        Log.d("pid", String.valueOf(productID));
 
         GetAllProducts getAllProducts = new GetAllProducts();
         getAllProducts.setPageNumber(0);

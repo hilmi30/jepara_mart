@@ -60,7 +60,9 @@ public class HomePage_1 extends Fragment implements BaseSliderView.OnSliderClick
     
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        MainActivity.jmartLogo.setVisibility(View.VISIBLE);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(ConstantValues.APP_HEADER);
+
     
         // Get BannersList from ApplicationContext
         bannerImages = ((App) getContext().getApplicationContext()).getBannersList();

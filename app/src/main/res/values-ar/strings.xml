@@ -330,6 +330,20 @@
     <string name="change_password">تغيير كلمة السر</string>
     <string name="we_will_send_email">We will send an email to change your password</string>
     <string name="please_check_your_email_and_change_your_password">Please check your email and change your password</string>
+    <string name="set_location">Set Delivery Destination Point</string>
+    <string name="your_delivery_point">Your Delivery Point</string>
+    <string name="reset">reset</string>
+    <string name="courier">Courier</string>
+    <string name="deskripsi_titik_kirim">this point as a reference for the jepara mart courier to deliver your goods to the desired destination</string>
+    <string name="already_in_cart">Already in Cart</string>
+    <string name="go_to_location">Go to Location</string>
+    <string name="delivery_point">Delivery Point</string>
+    <string name="change_location">Change Location</string>
+    <string name="order_code">Order Code</string>
+    <string name="please_confirm">Please confirm if the item has been received</string>
+    <string name="item_diterima">Item received</string>
+    <string name="konfimasi">Confirmation Item Received</string>
+    <string name="berhasil_disalin">Copied</string>
 
 
 </resources>

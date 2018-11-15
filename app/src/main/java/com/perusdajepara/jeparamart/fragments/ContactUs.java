@@ -1,12 +1,15 @@
 package com.perusdajepara.jeparamart.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
@@ -19,6 +22,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.maps.MapView;
 import com.perusdajepara.jeparamart.activities.MainActivity;
 import com.perusdajepara.jeparamart.R;
 import com.perusdajepara.jeparamart.app.App;
@@ -47,16 +53,38 @@ public class ContactUs extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mGoogleMap;
     private AppSettingsDetails appSettings;
-    
-    
+
+    private MapView mapView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.contact_us, container, false);
 
+        com.mapbox.mapboxsdk.geometry.LatLng jeparaMartCoor = new com.mapbox.mapboxsdk.geometry.LatLng(
+                -6.58400376, 110.6618722);
+
+        mapView = (MapView) rootView.findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(mapboxMap -> {
+            mapboxMap.addMarker(new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                    .position(jeparaMartCoor)
+                    .title("JeparaMart"));
+
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(jeparaMartCoor) // Sets the new camera position
+                    .zoom(15) // Sets the zoom to level 10
+                    .tilt(20) // Set the camera tilt to 20 degrees
+                    .build(); // Builds the CameraPosition object from the builder
+
+            mapboxMap.setCameraPosition(position);
+            mapboxMap.getUiSettings().setAllGesturesEnabled(false);
+        });
+
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionContactUs));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get AppSettingsDetails from ApplicationContext
         appSettings = ((App) getContext().getApplicationContext()).getAppSettingsDetails();
@@ -108,8 +136,56 @@ public class ContactUs extends Fragment implements OnMapReadyCallback {
 
         return rootView;
     }
-    
-    
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
     
     //*********** Called after onCreateView() has returned, but before any saved state has been restored in to the view ********//
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mapbox="http://schemas.android.com/tools"
     android:id="@+id/coordinator_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/windowBackground" >
+    android:background="@color/windowBackground">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,13 +17,24 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="300dp">
 
-            <ImageView
-                android:background="@color/white"
-                android:padding="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/jepara_mart" />
+                <com.mapbox.mapboxsdk.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10" />
+
+            </FrameLayout>
+
+            <!--<ImageView-->
+                <!--android:background="@color/white"-->
+                <!--android:padding="50dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="300dp"-->
+                <!--android:src="@drawable/jepara_mart" />-->
 
             <FrameLayout
                 android:visibility="gone"
@@ -37,6 +48,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_view_contact_us"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

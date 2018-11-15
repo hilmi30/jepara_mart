@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ public class Thank_You extends Fragment {
         // Get the Bundle Arguments
         Bundle checkoutArg = getArguments();
         isTransfer = checkoutArg.getBoolean("transfer");
+        Log.d("transfer", isTransfer.toString());
         noRekening = checkoutArg.getString("rekening");
         orderCode = checkoutArg.getString("orderCode");
         bankName = checkoutArg.getString("bankName");

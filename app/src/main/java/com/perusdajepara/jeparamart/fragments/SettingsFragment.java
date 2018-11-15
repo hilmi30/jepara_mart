@@ -87,6 +87,7 @@ public class SettingsFragment extends Fragment {
 
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.actionSettings));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
 
         // Binding Layout Views

@@ -63,6 +63,7 @@ public class Categories_1 extends Fragment {
             // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
             MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.categories));
+            MainActivity.jmartLogo.setVisibility(View.GONE);
         }
         
 

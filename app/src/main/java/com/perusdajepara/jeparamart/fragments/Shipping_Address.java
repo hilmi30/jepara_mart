@@ -1,15 +1,20 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +28,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.perusdajepara.jeparamart.customs.DialogLoader;
 
 import com.perusdajepara.jeparamart.activities.MainActivity;
@@ -67,11 +77,18 @@ public class Shipping_Address extends Fragment {
     ArrayAdapter<String> provAdapter;
     ArrayAdapter<String> kecAdapter;
 
-    Button proceed_checkout_btn;
+    private MapView mapView;
+
+    Button proceed_checkout_btn, resetBtn;
     LinearLayout default_shipping_layout;
     EditText input_firstname, input_lastname, input_address, input_prov, input_kab, input_kec, input_city, input_postcode;
 
     DialogLoader dialogLoader;
+
+    NestedScrollView scrollView;
+    Double lat, lng, defLat, defLng;
+    CameraPosition cameraPosition;
+    MarkerOptions markerOptions;
 
 
     @Nullable
@@ -85,6 +102,7 @@ public class Shipping_Address extends Fragment {
             }
         }
 
+        Log.d("update", isUpdate.toString());
 
         // Set the Title of Toolbar
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.shipping_address));
@@ -92,7 +110,7 @@ public class Shipping_Address extends Fragment {
         // Get the customersID and defaultAddressID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
         defaultAddressID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userDefaultAddressID", "");
-
+        Log.d("default", defaultAddressID);
 
         // Binding Layout Views
         input_firstname = (EditText) rootView.findViewById(R.id.firstname);
@@ -126,10 +144,15 @@ public class Shipping_Address extends Fragment {
 
         dialogLoader = new DialogLoader(getContext());
 
+        scrollView = rootView.findViewById(R.id.scroll_view_address);
+        resetBtn = rootView.findViewById(R.id.reset_coor);
+
+        mapView = (MapView) rootView.findViewById(R.id.mapViewAddress);
+        mapView.onCreate(savedInstanceState);
+        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
 
         // Request Provinsi
         RequestProv();
-
 
         // If an existing Address is being Edited
         if (isUpdate) {
@@ -149,6 +172,14 @@ public class Shipping_Address extends Fragment {
             input_city.setText(shippingAddress.getCity());
             input_postcode.setText(shippingAddress.getPostcode());
 
+            lat = shippingAddress.getLat();
+            lng = shippingAddress.getLng();
+
+            defLat = shippingAddress.getLat();
+            defLng = shippingAddress.getLng();
+
+            setMap();
+
             RequestKab(String.valueOf(selectedProvID));
             RequestKec(String.valueOf(selectedKabID));
         }
@@ -156,7 +187,6 @@ public class Shipping_Address extends Fragment {
             // Request All Addresses of the User
             RequestAllAddresses();
         }
-
 
         // Handle Touch event of input_prov EditText
         input_prov.setOnTouchListener(new View.OnTouchListener() {
@@ -434,6 +464,8 @@ public class Shipping_Address extends Fragment {
                     shippingAddress.setKabId(selectedKabID);
                     shippingAddress.setProvId(selectedProvID);
                     shippingAddress.setKecId(selectedKecID);
+                    shippingAddress.setLat(lat);
+                    shippingAddress.setLng(lng);
 
                     // Save the AddressDetails
                     ((App) getContext().getApplicationContext()).setShippingAddress(shippingAddress);
@@ -446,7 +478,7 @@ public class Shipping_Address extends Fragment {
                     }
                     else {
                         // Navigate to Billing_Address Fragment
-                        Fragment fragment = new Billing_Address();
+                        Fragment fragment = new Shipping_Methods();
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment)
                                 .addToBackStack(null).commit();
@@ -459,11 +491,30 @@ public class Shipping_Address extends Fragment {
         return rootView;
     }
 
+    private void setMarker(MapboxMap mapboxMap, Double lat, Double lng) {
+
+        LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+        markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.your_delivery_point));
+
+        cameraPosition = new CameraPosition.Builder()
+                .target(latLng) // Sets the new camera position
+                .zoom(10) // Sets the zoom to level 10
+                .tilt(20) // Set the camera tilt to 20 degrees
+                .build(); // Builds the CameraPosition object from the builder
+
+        mapboxMap.addMarker(markerOptions);
+        mapboxMap.setCameraPosition(cameraPosition);
+    }
 
 
     //*********** Get Provinsi List from the Server ********//
 
     private void RequestProv() {
+
+        dialogLoader.showProgressDialog();
 
         Call<Provinsi> call = APIClient.getInstance()
                 .getProvinsi();
@@ -471,7 +522,9 @@ public class Shipping_Address extends Fragment {
         call.enqueue(new Callback<Provinsi>() {
             @Override
             public void onResponse(Call<Provinsi> call, Response<Provinsi> response) {
-                
+
+                dialogLoader.hideProgressDialog();
+
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
@@ -502,6 +555,7 @@ public class Shipping_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Provinsi> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
@@ -513,6 +567,8 @@ public class Shipping_Address extends Fragment {
 
     private void RequestKab(String provID) {
 
+        dialogLoader.showProgressDialog();
+
         Call<Kabupaten> call = APIClient.getInstance()
                 .getKabupaten
                         (
@@ -522,6 +578,8 @@ public class Shipping_Address extends Fragment {
         call.enqueue(new Callback<Kabupaten>() {
             @Override
             public void onResponse(Call<Kabupaten> call, Response<Kabupaten> response) {
+
+                dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
 
@@ -552,12 +610,15 @@ public class Shipping_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kabupaten> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void RequestKec(String kabID) {
+
+        dialogLoader.showProgressDialog();
 
         Call<Kecamatan> call = APIClient.getInstance()
                 .getKecamatan
@@ -568,6 +629,8 @@ public class Shipping_Address extends Fragment {
         call.enqueue(new Callback<Kecamatan>() {
             @Override
             public void onResponse(Call<Kecamatan> call, Response<Kecamatan> response) {
+
+                dialogLoader.hideProgressDialog();
 
                 if (response.isSuccessful()) {
 
@@ -600,6 +663,7 @@ public class Shipping_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kecamatan> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
@@ -614,7 +678,6 @@ public class Shipping_Address extends Fragment {
 
         // Initialize new AddressDetails for DefaultAddress
         AddressDetails defaultAddress = new AddressDetails();
-
 
         for (int i=0;  i<addressesList.size();  i++) {
             // Check if the Current Address is User's Default Address
@@ -638,11 +701,66 @@ public class Shipping_Address extends Fragment {
         input_city.setText(defaultAddress.getCity());
         input_postcode.setText(defaultAddress.getPostcode());
 
+        lat = defaultAddress.getLat();
+        lng = defaultAddress.getLng();
+
+        defLat = defaultAddress.getLat();
+        defLng = defaultAddress.getLng();
+
+        setMap();
+
         // Request Kabupaten of selected Country
         RequestKab(selectedProvID);
         RequestKec(selectedKabID);
     }
 
+    private void setMap() {
+        mapView.getMapAsync(mapboxMap -> {
+
+            resetBtn.setEnabled(true);
+            resetBtn.setClickable(true);
+
+            setMarker(mapboxMap, lat, lng);
+
+            resetBtn.setOnClickListener(view -> {
+                mapboxMap.clear();
+                setMarker(mapboxMap, defLat, defLng);
+            });
+
+            mapboxMap.addOnMapClickListener(point -> {
+                lat = point.getLatitude();
+                lng = point.getLongitude();
+
+                mapboxMap.clear();
+
+                LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+                markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        .position(latLng)
+                        .title(getString(R.string.your_delivery_point));
+
+                cameraPosition = new CameraPosition.Builder()
+                        .target(latLng) // Sets the new camera position
+                        .build(); // Builds the CameraPosition object from the builder
+
+                mapboxMap.addMarker(markerOptions);
+                mapboxMap.setCameraPosition(cameraPosition);
+            });
+        });
+
+        mapView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    scrollView.requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return mapView.onTouchEvent(event);
+        });
+    }
 
 
     //*********** Request List of User Addresses ********//
@@ -665,10 +783,42 @@ public class Shipping_Address extends Fragment {
 
                 // Check if the Response is successful
                 if (response.isSuccessful()) {
+
                     if (response.body().getSuccess().equalsIgnoreCase("1")) {
 
                         // Filter all the Addresses to get the Default Address
                         filterDefaultAddress(response.body());
+                    } else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+
+                        lat = -6.5804981;
+                        lng = 110.6789833;
+
+                        defLat = -6.5804981;
+                        defLng = 110.6789833;
+
+                        setMap();
+
+                        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                        alert.setTitle("Belum ada alamat");
+                        alert.setMessage("Anda belum menyimpan alamat. Simpan alamat sekarang?");
+                        alert.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Navigate to My_Addresses Fragment
+                                Fragment fragment = new My_Addresses();
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.main_fragment, fragment)
+                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                        .addToBackStack(getString(R.string.actionHome)).commit();
+                            }
+                        });
+                        alert.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alert.create().show();
                     }
                 }
             }
@@ -680,8 +830,54 @@ public class Shipping_Address extends Fragment {
             }
         });
     }
-    
-    
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
     
     //*********** Validate Address Form Inputs ********//
     

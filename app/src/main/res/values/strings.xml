@@ -339,14 +339,31 @@
     <string name="problem">If you experience problems. Please contact us</string>
     <string name="payment_code">Payment Code</string>
     <string name="item_confirmation_received">I have transferred</string>
-    <string name="confirm_imm">Confirm immediately if the item has arrived</string>
-    <string name="item_received">Items Received</string>
-    <string name="have_you_received">Have you received the goods?</string>
+    <string name="confirm_imm">Confirm immediately if already transfer</string>
+    <string name="item_received">Already Transfer</string>
+    <string name="have_you_received">Transfer Confirm</string>
     <string name="one" translatable="false">1</string>
     <string name="zero" translatable="false">0</string>
     <string name="change_password">Change Password</string>
     <string name="change_gender">Change Gender</string>
     <string name="we_will_send_email">We will send an email to change your password</string>
     <string name="please_check_your_email_and_change_your_password">Please check your email and change your password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="set_location">Set Delivery Destination Point</string>
+    <string name="your_delivery_point">Your Delivery Point</string>
+    <string name="deskripsi_titik_kirim">This point as a reference for the Jepara Mart courier to deliver your goods to the desired destination</string>
+    <string name="reset">reset</string>
+    <string name="courier">Courier</string>
+    <string name="already_in_cart">Already in Cart</string>
+    <string name="go_to_location">Go to Location</string>
+    <string name="delivery_point">Delivery Point</string>
+    <string name="change_location">Change Location</string>
+    <string name="order_code">Order Code</string>
+    <string name="please_confirm">Please confirm if the item has been received</string>
+    <string name="item_diterima">Item received</string>
+    <string name="konfimasi">Confirmation Item Received</string>
+    <string name="berhasil_disalin">Copied</string>
 
 </resources>

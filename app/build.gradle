@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'com.perusdajepara.jeparamart'
         minSdkVersion 17
@@ -12,6 +12,12 @@ android {
         multiDexEnabled true
         manifestPlaceholders = [onesignal_app_id: "a33b86bb-d35f-4f29-bcaf-f97a68662428", onesignal_google_project_number: "735140132931"]
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     repositories {
         mavenCentral()
     }
@@ -62,6 +68,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:12.0.1'
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
     implementation 'com.google.android.gms:play-services-location:12.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.1'
 
 }
 

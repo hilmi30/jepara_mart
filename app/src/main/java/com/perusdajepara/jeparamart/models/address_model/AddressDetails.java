@@ -6,15 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class AddressDetails {
 
-    @SerializedName("kec_id")
+    @SerializedName("id_kec")
     @Expose
     private String kecId;
 
-    @SerializedName("kab_id")
+    @SerializedName("id_kab")
     @Expose
     private String kabId;
 
-    @SerializedName("prov_id")
+    @SerializedName("id_prov")
     @Expose
     private String provId;
 
@@ -29,6 +29,14 @@ public class AddressDetails {
     @SerializedName("kec_nama")
     @Expose
     private String kecNama;
+
+    @SerializedName("latitude")
+    @Expose
+    private Double lat;
+
+    @SerializedName("longitude")
+    @Expose
+    private Double lng;
 
     // ====================================================================================== //
 
@@ -80,6 +88,22 @@ public class AddressDetails {
     @SerializedName("default_address")
     @Expose
     private int defaultAddress;
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
 
     public String getProvName() {
         return provName;

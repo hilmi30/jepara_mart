@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 
+import com.mapbox.mapboxsdk.Mapbox;
 import com.perusdajepara.jeparamart.app.App;
 import com.perusdajepara.jeparamart.models.device_model.AppSettingsDetails;
 import com.perusdajepara.jeparamart.app.MyAppPrefsManager;
@@ -22,6 +23,8 @@ import com.perusdajepara.jeparamart.constant.ConstantValues;
 import com.perusdajepara.jeparamart.models.device_model.DeviceInfo;
 import com.perusdajepara.jeparamart.utils.Utilities;
 import com.perusdajepara.jeparamart.network.StartAppRequests;
+
+import static com.perusdajepara.jeparamart.app.App.getContext;
 
 
 /**
@@ -43,6 +46,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash);
+
+        Mapbox.getInstance(getContext(), ConstantValues.MAP_TOKEN);
 
         // Bind Layout Views
         progressBar = (ProgressBar) findViewById(R.id.splash_loadingBar);

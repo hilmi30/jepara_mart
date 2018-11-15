@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,6 +59,7 @@ public class My_Addresses extends Fragment {
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAddresses));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get the CustomerID and DefaultAddressID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
@@ -73,7 +75,6 @@ public class My_Addresses extends Fragment {
 
         // Request for User's Addresses
         RequestAllAddresses();
-
 
 
         // Handle Click event of add_address_fab FAB
@@ -173,6 +174,7 @@ public class My_Addresses extends Fragment {
 
             @Override
             public void onFailure(Call<AddressData> call, Throwable t) {
+                dialogLoader.hideProgressDialog();
                 Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });

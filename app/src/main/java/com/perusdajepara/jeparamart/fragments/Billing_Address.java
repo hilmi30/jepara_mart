@@ -1,11 +1,13 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -24,6 +26,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.perusdajepara.jeparamart.activities.MainActivity;
 import com.perusdajepara.jeparamart.R;
 
@@ -31,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.perusdajepara.jeparamart.app.App;
+import com.perusdajepara.jeparamart.customs.DialogLoader;
 import com.perusdajepara.jeparamart.models.address_model.AddressDetails;
 import com.perusdajepara.jeparamart.models.address_model.Kabupaten;
 import com.perusdajepara.jeparamart.models.address_model.Kecamatan;
@@ -65,9 +73,18 @@ public class Billing_Address extends Fragment {
     ArrayAdapter<String> provAdapter;
     ArrayAdapter<String> kecAdapter;
 
-    Button proceed_checkout_btn;
+    Button proceed_checkout_btn, resetBtn;
     CheckBox default_shipping_checkbox;
     EditText input_firstname, input_lastname, input_address, input_prov, input_kab, input_kec, input_city, input_postcode;
+
+    NestedScrollView scrollView;
+    Double lat, lng, defLat, defLng;
+    CameraPosition cameraPosition;
+    MarkerOptions markerOptions;
+
+    DialogLoader dialogLoader;
+
+    private MapView mapView;
 
 
     @Nullable
@@ -81,6 +98,7 @@ public class Billing_Address extends Fragment {
             }
         }
 
+        dialogLoader = new DialogLoader(getContext());
 
         // Set the Title of Toolbar
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.billing_address));
@@ -116,6 +134,8 @@ public class Billing_Address extends Fragment {
         // Set the text of Button
         proceed_checkout_btn.setText(getContext().getString(R.string.next));
 
+        scrollView = rootView.findViewById(R.id.scroll_view_address);
+        resetBtn = rootView.findViewById(R.id.reset_coor);
 
         // Request for Provinsi List
         RequestProv();
@@ -139,6 +159,12 @@ public class Billing_Address extends Fragment {
             input_city.setText(billingAddress.getCity());
             input_postcode.setText(billingAddress.getPostcode());
 
+            lat = billingAddress.getLat();
+            lng = billingAddress.getLng();
+
+            defLat = billingAddress.getLat();
+            defLng = billingAddress.getLng();
+
             RequestKab(selectedProvID);
             RequestKec(selectedKabID);
             
@@ -159,12 +185,66 @@ public class Billing_Address extends Fragment {
             input_city.setText(shippingAddress.getCity());
             input_postcode.setText(shippingAddress.getPostcode());
 
+            lat = shippingAddress.getLat();
+            lng = shippingAddress.getLng();
+
+            defLat = shippingAddress.getLat();
+            defLng = shippingAddress.getLng();
+
             RequestKab(selectedProvID);
             RequestKec(selectedKabID);
     
             default_shipping_checkbox.setChecked(true);
         }
 
+        mapView = (MapView) rootView.findViewById(R.id.mapViewAddress);
+        mapView.onCreate(savedInstanceState);
+        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
+        mapView.getMapAsync(mapboxMap -> {
+
+            resetBtn.setEnabled(true);
+            resetBtn.setClickable(true);
+
+            setMarker(mapboxMap, lat, lng);
+
+            resetBtn.setOnClickListener(view -> {
+                mapboxMap.clear();
+                setMarker(mapboxMap, defLat, defLng);
+            });
+
+            mapboxMap.addOnMapClickListener(point -> {
+                lat = point.getLatitude();
+                lng = point.getLongitude();
+
+                mapboxMap.clear();
+
+                LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+                markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                        .position(latLng)
+                        .title(getString(R.string.your_delivery_point));
+
+                cameraPosition = new CameraPosition.Builder()
+                        .target(latLng) // Sets the new camera position
+                        .build(); // Builds the CameraPosition object from the builder
+
+                mapboxMap.addMarker(markerOptions);
+                mapboxMap.setCameraPosition(cameraPosition);
+            });
+        });
+
+        mapView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    scrollView.requestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    scrollView.requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return mapView.onTouchEvent(event);
+        });
 
         // Handle Touch event of input_prov EditText
         input_prov.setOnTouchListener(new View.OnTouchListener() {
@@ -437,6 +517,12 @@ public class Billing_Address extends Fragment {
                     input_city.setText(shippingAddress.getCity());
                     input_postcode.setText(shippingAddress.getPostcode());
 
+                    lat = shippingAddress.getLat();
+                    lng = shippingAddress.getLng();
+
+                    defLat = shippingAddress.getLat();
+                    defLng = shippingAddress.getLng();
+
                     input_kab.setFocusableInTouchMode(true);
                     
                 }
@@ -449,6 +535,12 @@ public class Billing_Address extends Fragment {
                     input_kec.setText("");
                     input_city.setText("");
                     input_postcode.setText("");
+
+                    lat = -6.5804981;
+                    lng = 110.6789833;
+
+                    defLat = -6.5804981;
+                    defLng = 110.6789833;
                 }
             }
         });
@@ -476,6 +568,8 @@ public class Billing_Address extends Fragment {
                     billingAddress.setKabId(selectedKabID);
                     billingAddress.setProvId(selectedProvID);
                     billingAddress.setKecId(selectedKecID);
+                    billingAddress.setLat(lat);
+                    billingAddress.setLng(lng);
 
                     // Save the AddressDetails
                     ((App) getContext().getApplicationContext()).setBillingAddress(billingAddress);
@@ -504,6 +598,23 @@ public class Billing_Address extends Fragment {
     }
 
 
+    private void setMarker(MapboxMap mapboxMap, Double lat, Double lng) {
+
+        LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng);
+
+        markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.your_delivery_point));
+
+        cameraPosition = new CameraPosition.Builder()
+                .target(latLng) // Sets the new camera position
+                .zoom(10) // Sets the zoom to level 10
+                .tilt(20) // Set the camera tilt to 20 degrees
+                .build(); // Builds the CameraPosition object from the builder
+
+        mapboxMap.addMarker(markerOptions);
+        mapboxMap.setCameraPosition(cameraPosition);
+    }
 
     //*********** Get Provinsi List from the Server ********//
 
@@ -647,7 +758,56 @@ public class Billing_Address extends Fragment {
             }
         });
     }
-    
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+
     //*********** Validate Address Form Inputs ********//
     
     private boolean validateAddressForm() {

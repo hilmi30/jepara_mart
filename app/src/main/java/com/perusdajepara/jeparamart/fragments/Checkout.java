@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -45,6 +46,10 @@ import com.braintreepayments.api.models.CardBuilder;
 import com.braintreepayments.api.models.Configuration;
 import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -163,10 +168,14 @@ public class Checkout extends Fragment {
     
     private static PayPalConfiguration payPalConfiguration;
     private static final int SIMPLE_PAYPAL_REQUEST_CODE = 123;
-    
+
+    NestedScrollView nestedScrollView;
     
     CardType cardType;
     SupportedCardTypesView braintreeSupportedCards;
+
+    private MapView mapView;
+    Button changeLocation;
 
     private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.MAESTRO,
                                                              CardType.UNIONPAY, CardType.AMEX};
@@ -186,6 +195,8 @@ public class Checkout extends Fragment {
         shippingMethod = ((App) getContext().getApplicationContext()).getShippingService();
         billingAddress = ((App) getContext().getApplicationContext()).getBillingAddress();
         shippingAddress = ((App) getContext().getApplicationContext()).getShippingAddress();
+
+        Log.e("lat", shippingAddress.getLat().toString());
 
         // Get userInfo from Local Databases User_Info_DB
         userInfo = user_info_db.getUserData(getActivity().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", null));
@@ -216,6 +227,8 @@ public class Checkout extends Fragment {
         checkout_comments = (EditText) rootView.findViewById(R.id.checkout_comments);
         checkout_items_recycler = (RecyclerView) rootView.findViewById(R.id.checkout_items_recycler);
         checkout_coupons_recycler = (RecyclerView) rootView.findViewById(R.id.checkout_coupons_recycler);
+        changeLocation = rootView.findViewById(R.id.change_location_btn);
+        nestedScrollView = rootView.findViewById(R.id.scroll_container);
 
         card_details_layout = (CardView) rootView.findViewById(R.id.card_details_layout);
         checkout_paypal_btn = (Button) rootView.findViewById(R.id.checkout_paypal_btn);
@@ -251,7 +264,41 @@ public class Checkout extends Fragment {
         // Get checkoutItems from Local Databases User_Cart_DB
         checkoutItemsList = user_cart_db.getCartItems();
 
-        
+
+        mapView = (MapView) rootView.findViewById(R.id.map_checkout);
+        mapView.onCreate(savedInstanceState);
+        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
+        mapView.getMapAsync(mapboxMap -> {
+
+            LatLng latLng = new LatLng(shippingAddress.getLat(), shippingAddress.getLng());
+
+            MarkerOptions markerOptions = new com.mapbox.mapboxsdk.annotations.MarkerOptions()
+                    .position(latLng)
+                    .title(getString(R.string.your_delivery_point));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latLng) // Sets the new camera position
+                    .zoom(10) // Sets the zoom to level 10
+                    .tilt(20) // Set the camera tilt to 20 degrees
+                    .build(); // Builds the CameraPosition object from the builder
+
+            mapboxMap.addMarker(markerOptions);
+            mapboxMap.setCameraPosition(cameraPosition);
+        });
+
+        mapView.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    nestedScrollView.requestDisallowInterceptTouchEvent(true);
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    nestedScrollView.requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return mapView.onTouchEvent(event);
+        });
+
         // Request Payment Methods
         RequestPaymentMethods();
 
@@ -515,7 +562,20 @@ public class Checkout extends Fragment {
             }
         });
 
+        changeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Navigate to Shipping_Address Fragment to Edit ShippingAddress
+                Fragment fragment = new Shipping_Address();
+                Bundle args = new Bundle();
+                args.putBoolean("isUpdate", true);
+                fragment.setArguments(args);
 
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, fragment)
+                        .addToBackStack(null).commit();
+            }
+        });
 
         // Handle the Click event of edit_billing_Btn Button
         edit_billing_Btn.setOnClickListener(new View.OnClickListener() {
@@ -671,14 +731,55 @@ public class Checkout extends Fragment {
 
         return rootView;
     }
-    
-    
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
     
     //*********** Called when the fragment is no longer in use ********//
     
     @Override
     public void onDestroy() {
         getContext().stopService(new Intent(getContext(), PayPalService.class));
+        mapView.onDestroy();
         super.onDestroy();
     }
     
@@ -1040,7 +1141,12 @@ public class Checkout extends Fragment {
         orderDetails.setDeliveryKecamatan(shippingAddress.getKecNama());
         orderDetails.setDeliveryZoneId(String.valueOf(shippingAddress.getKabId()));
         orderDetails.setDeliveryCountryId(String.valueOf(shippingAddress.getProvId()));
-    
+        orderDetails.setDeliveryLat(String.valueOf(shippingAddress.getLat()));
+        orderDetails.setDeliveryLong(String.valueOf(shippingAddress.getLng()));
+
+        orderDetails.setLat(String.valueOf(shippingAddress.getLat()));
+        orderDetails.setLng(String.valueOf(shippingAddress.getLng()));
+
         // Set Billing Info
         orderDetails.setBillingFirstname(billingAddress.getFirstname());
         orderDetails.setBillingLastname(billingAddress.getLastname());
@@ -1055,6 +1161,8 @@ public class Checkout extends Fragment {
         orderDetails.setBillingKecamatan(billingAddress.getKecNama());
         orderDetails.setBillingZoneId(billingAddress.getKabId());
         orderDetails.setBillingCountryId(billingAddress.getProvId());
+        orderDetails.setBillingLat(String.valueOf(billingAddress.getLat()));
+        orderDetails.setBillingLong(String.valueOf(billingAddress.getLng()));
     
         orderDetails.setLanguage_id(ConstantValues.LANGUAGE_ID);
         
@@ -1076,6 +1184,7 @@ public class Checkout extends Fragment {
         // Set PaymentNonceToken and PaymentMethod
         orderDetails.setNonce(paymentNonceToken);
         orderDetails.setPaymentMethod(selectedPaymentMethod);
+        Log.d("payment", selectedPaymentMethod);
     
         // Set Checkout Price and Products
         orderDetails.setProductsTotal(checkoutSubtotal);
@@ -1369,20 +1478,26 @@ public class Checkout extends Fragment {
 
                         String orderCode = response.body().getOrdersid();
                         String finalPrice = response.body().getFinalPrice();
+
                         goToThankYouFrag(orderCode, finalPrice);
+
+                        Log.d("sukses", "sukses");
 
 //                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
                     }
                     else if (response.body().getSuccess().equalsIgnoreCase("0")) {
+                        Log.d("gagal", "gagal");
                         Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_LONG).show();
     
                     }
                     else {
+                        Log.d("gagal respon", "gagal respon");
                         // Unable to get Success status
                         Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
                 }
                 else {
+                    Log.d("gagal tidak diketahui", "gagal tidak diketahui");
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
             }

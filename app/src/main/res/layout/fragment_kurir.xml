@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/kurir_swipe"
+    tools:context=".fragments.KurirFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<EditText-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:id="@+id/search_kurir"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:hint="@string/search_product_by_name"-->
+            <!--android:inputType="textNoSuggestions"-->
+            <!--android:imeOptions="actionSearch"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/textColorSecondaryLight"-->
+            <!--android:textColorHint="@color/textColorPrimaryDark"-->
+            <!--android:drawableStart="@drawable/ic_search"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@drawable/rounded_corners_edittext_dark" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/kurir_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/kurir_empty_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@string/record_not_found"
+            android:textColor="@color/textColorPrimaryDark"
+            android:layout_centerInParent="true" />
+
+        <ProgressBar
+            android:id="@+id/kurir_loading_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:indeterminateTintMode="src_in"
+            android:indeterminateTint="@color/colorPrimaryLight" />
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

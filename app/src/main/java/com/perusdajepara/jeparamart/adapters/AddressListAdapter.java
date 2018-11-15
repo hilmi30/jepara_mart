@@ -125,6 +125,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                 addressInfo.putString("addressStreet", addressDetails.getStreet());
                 addressInfo.putString("addressPostCode", addressDetails.getPostcode());
                 addressInfo.putString("addressSuburb", addressDetails.getSuburb());
+                addressInfo.putDouble("addressLat", addressDetails.getLat());
+                addressInfo.putDouble("addressLng", addressDetails.getLng());
 
                 // Navigate to Add_Address Fragment with arguments to Edit Address
                 Fragment fragment = new Add_Address();

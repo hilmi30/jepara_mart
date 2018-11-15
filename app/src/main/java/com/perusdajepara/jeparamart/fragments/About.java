@@ -1,5 +1,6 @@
 package com.perusdajepara.jeparamart.fragments;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,14 +17,26 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.perusdajepara.jeparamart.R;
 import com.perusdajepara.jeparamart.activities.MainActivity;
 import com.perusdajepara.jeparamart.app.App;
 import com.perusdajepara.jeparamart.constant.ConstantValues;
+
+import java.time.chrono.MinguoChronology;
+import java.util.Locale;
+import java.util.Map;
 
 
 public class About extends Fragment {
@@ -38,10 +51,10 @@ public class About extends Fragment {
 
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Set the Title of Toolbar
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAbout));
-
 
         // Binding Layout Views
         official_web = (TextView) rootView.findViewById(R.id.official_web);
@@ -225,7 +238,6 @@ public class About extends Fragment {
 
         return rootView;
     }
-
 }
 
 

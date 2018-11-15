@@ -53,9 +53,22 @@ public class UserDetails {
     @SerializedName("customers_default_address_id")
     @Expose
     private String customersDefaultAddressId;
+
+    @SerializedName("is_kurir")
+    @Expose
+    private String isKurir;
+
     @SerializedName("liked_products")
     @Expose
     private List<UserLikedProducts> likedProducts = null;
+
+    public String getIsKurir() {
+        return isKurir;
+    }
+
+    public void setIsKurir(String isKurir) {
+        this.isKurir = isKurir;
+    }
 
     public String getCustomersId() {
         return customersId;

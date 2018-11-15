@@ -118,7 +118,9 @@ public interface APIRequests {
                                             @Field("entry_country_id") String entry_prov_id,
                                             @Field("entry_zone_id") String entry_kab_id,
                                             @Field("entry_kec_id") String entry_kec_id,
-                                            @Field("customers_default_address_id") String customers_default_address_id );
+                                            @Field("customers_default_address_id") String customers_default_address_id,
+                                            @Field("entry_lat") String entry_lat,
+                                            @Field("entry_long") String entry_long );
 
     @FormUrlEncoded
     @POST("updateShippingAddress")
@@ -132,7 +134,9 @@ public interface APIRequests {
                                             @Field("entry_country_id") String entry_prov_id,
                                             @Field("entry_zone_id") String entry_kab_id,
                                             @Field("entry_kec_id") String entry_kec_id,
-                                            @Field("customers_default_address_id") String customers_default_address_id );
+                                            @Field("customers_default_address_id") String customers_default_address_id,
+                                            @Field("entry_lat") String entry_lat,
+                                            @Field("entry_long") String entry_long);
 
     @FormUrlEncoded
     @POST("updateDefaultAddress")
@@ -209,6 +213,13 @@ public interface APIRequests {
     @POST("getOrders")
     Call<OrderData> getOrders(              @Field("customers_id") String customers_id,
                                             @Field("language_id") int language_id);
+
+    @FormUrlEncoded
+    @POST("getAllOrders")
+    Call<OrderData> getAllOrders(           @Field("page_number") String page_number,
+                                            @Field("customers_id") String customers_id,
+                                            @Field("language_id") int language_id,
+                                            @Field("type") String type);
 
 
     @FormUrlEncoded
@@ -295,6 +306,10 @@ public interface APIRequests {
     @FormUrlEncoded
     @POST("updateOrderStatus")
     Call<OrderData> updateOrderStatus(          @Field("orders_id") String orders_id);
+
+    @FormUrlEncoded
+    @POST("updateOrderComplete")
+    Call<OrderData> updateOrderComplete(          @Field("orders_id") String orders_id);
     
 }
 

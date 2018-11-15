@@ -8,5 +8,10 @@
     android:theme="@style/MyToolbar"
     app:popupTheme="@style/MyToolbarPopUp">
 
+    <ImageView
+        android:id="@+id/jmart_logo"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/jmart_logo_full_white"/>
 
 </android.support.v7.widget.Toolbar>

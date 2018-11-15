@@ -154,6 +154,7 @@
                         android:background="@color/white"
                         android:drawableEnd="@drawable/ic_chevron_down" />
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/official_web"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

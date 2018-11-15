@@ -78,7 +78,8 @@ public class DrawerExpandableListAdapter extends BaseExpandableListAdapter {
         
         // set the Group Title
         TextView headerListText = (TextView) convertView.findViewById(R.id.main_drawer_list_header_text);
-        headerListText.setTypeface(null, Typeface.BOLD);
+//        headerListText.setTypeface(null, Typeface.BOLD);
+        headerListText.setTextSize(12f);
         headerListText.setText(group.getTitle());
 
         

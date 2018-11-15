@@ -45,5 +45,7 @@
     <color name="socialColorFacebook">#3b5998</color>
     <color name="socialColorLinkedin">#007bb5</color>
     <color name="socialColorInstagram">#125688</color>
+    <color name="purple">#ad14c4</color>
+    <color name="yellow">#b3c416</color>
 
 </resources>

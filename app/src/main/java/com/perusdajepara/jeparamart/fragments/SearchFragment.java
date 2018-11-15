@@ -75,6 +75,7 @@ public class SearchFragment extends Fragment {
 
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionSearch));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
         
         
         // Binding Layout Views

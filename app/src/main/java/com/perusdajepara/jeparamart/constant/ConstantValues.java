@@ -14,7 +14,8 @@ public class ConstantValues {
     public static final boolean IS_CLIENT_ACTIVE = true;                                // "false" if compiling the project for Demo, "true" otherwise
     
     public static final String DEFAULT_NOTIFICATION = "onesignal";                      // "fcm" for FCM_Notifications, "onesignal" for OneSignal
-    
+    public static final String MAP_TOKEN = "pk.eyJ1IjoiaGlsbWkzMCIsImEiOiJjam5sOTR3NDMwMDlvM3FwNm04ZnFncXl0In0.mJQ1LHVJp47yqFw5Ea5ABw";
+
     public static String APP_HEADER;
     
     public static String DEFAULT_HOME_STYLE;

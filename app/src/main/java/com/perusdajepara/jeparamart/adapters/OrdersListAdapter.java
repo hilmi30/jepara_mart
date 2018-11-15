@@ -18,7 +18,6 @@ import com.perusdajepara.jeparamart.R;
 
 import java.util.List;
 
-import com.perusdajepara.jeparamart.constant.ConstantValues;
 import com.perusdajepara.jeparamart.fragments.Order_Details;
 import com.perusdajepara.jeparamart.models.order_model.OrderDetails;
 import com.perusdajepara.jeparamart.utils.Utilities;
@@ -31,14 +30,15 @@ import com.perusdajepara.jeparamart.utils.Utilities;
 public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.MyViewHolder> {
 
     Context context;
-    String customerID;
+    String customerID, kurir;
     List<OrderDetails> ordersList;
 
 
-    public OrdersListAdapter(Context context, String customerID, List<OrderDetails> ordersList) {
+    public OrdersListAdapter(Context context, String customerID, List<OrderDetails> ordersList, String kurir) {
         this.context = context;
         this.customerID = customerID;
         this.ordersList = ordersList;
+        this.kurir = kurir;
     }
 
 
@@ -69,9 +69,9 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
             noOfProducts += orderDetails.getProducts().get(i).getProductsQuantity();
         }
 
-//        holder.order_id.setText(String.valueOf(orderDetails.getOrdersId()));
-        holder.order_id.setText(orderDetails.getOrdersCode());
+        holder.order_id.setText(String.valueOf(orderDetails.getOrdersId()));
         holder.order_status.setText(orderDetails.getOrdersStatus());
+        holder.order_code.setText(orderDetails.getOrdersCode());
 //        holder.order_price.setText(ConstantValues.CURRENCY_SYMBOL + orderDetails.getOrderPrice());
         holder.order_price.setText(Utilities.convertToRupiah(orderDetails.getOrderPrice()));
         holder.order_date.setText(orderDetails.getDatePurchased());
@@ -89,10 +89,13 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
                 holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentRed));
                 break;
             case "4":
-                holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentOrange));
+                holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.purple));
                 break;
             case "5":
                 holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLight));
+                break;
+            case "6":
+                holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.yellow));
                 break;
         }
 
@@ -115,6 +118,7 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
                 // Get Order Info
                 Bundle itemInfo = new Bundle();
                 itemInfo.putParcelable("orderDetails", orderDetails);
+                itemInfo.putString("isKurir", kurir);
     
                 // Navigate to Order_Details Fragment
                 Fragment fragment = new Order_Details();
@@ -146,7 +150,7 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private Button order_view_btn;
-        private TextView order_id, order_product_count, order_status, order_price, order_date, payment_method;
+        private TextView order_id, order_product_count, order_status, order_price, order_date, payment_method, order_code;
 
 
         public MyViewHolder(final View itemView) {
@@ -158,7 +162,8 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
             order_status = (TextView) itemView.findViewById(R.id.order_status);
             order_price = (TextView) itemView.findViewById(R.id.order_price);
             order_date = (TextView) itemView.findViewById(R.id.order_date);
-            payment_method = (TextView) itemView.findViewById(R.id.order_payment_method);
+            payment_method = itemView.findViewById(R.id.order_payment_method);
+            order_code = itemView.findViewById(R.id.order_code);
         }
     }
 }

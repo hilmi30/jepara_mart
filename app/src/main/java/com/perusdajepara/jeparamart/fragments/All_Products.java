@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
@@ -110,7 +111,6 @@ public class All_Products extends Fragment {
         }
 
 
-        
         productsList = new ArrayList<>();
 
         // Request for Products based on PageNo.
@@ -279,6 +279,7 @@ public class All_Products extends Fragment {
 
         GetAllProducts getAllProducts = new GetAllProducts();
         getAllProducts.setPageNumber(pageNumber);
+        Log.d("pageNumber", String.valueOf(pageNumber));
         getAllProducts.setLanguageId(ConstantValues.LANGUAGE_ID);
         getAllProducts.setCustomersId(customerID);
         getAllProducts.setType(sortBy);
@@ -302,7 +303,6 @@ public class All_Products extends Fragment {
                     else if (response.body().getSuccess().equalsIgnoreCase("0")) {
                         // Products haven't been returned. Call the method to process some implementations
                         addProducts(response.body());
-                        Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
 
                     }
                     else {

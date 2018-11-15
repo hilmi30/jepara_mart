@@ -29,6 +29,7 @@ public class User_Info_DB {
     public static final String CUSTOMERS_GENDER                  = "customers_gender";
     public static final String CUSTOMERS_NEWSLETTER              = "customers_newsletter";
     public static final String CUSTOMERS_PICTURE                 = "customers_picture";
+//    public static final String IS_KURIR                 = "is_kurir";
 
 
 
@@ -49,6 +50,8 @@ public class User_Info_DB {
                     CUSTOMERS_GENDER           +" TEXT," +
                     CUSTOMERS_NEWSLETTER       +" TEXT," +
                     CUSTOMERS_PICTURE          +" TEXT" +
+//                    IS_KURIR          +" TEXT" +
+
                 ")";
     }
 
@@ -73,6 +76,7 @@ public class User_Info_DB {
         values.put(CUSTOMERS_GENDER,          user.getCustomersGender());
         values.put(CUSTOMERS_NEWSLETTER,      user.getCustomersNewsletter());
         values.put(CUSTOMERS_PICTURE,         user.getCustomersPicture());
+//        values.put(IS_KURIR,         user.getIsKurir());
 
         db.insert(TABLE_USER_INFO, null, values);
 
@@ -106,6 +110,7 @@ public class User_Info_DB {
                 userInfo.setCustomersGender(cursor.getString(8));
                 userInfo.setCustomersNewsletter(cursor.getString(9));
                 userInfo.setCustomersPicture(cursor.getString(10));
+//                userInfo.setIsKurir(cursor.getString(11));
 
             } while (cursor.moveToNext());
 
@@ -138,6 +143,7 @@ public class User_Info_DB {
         values.put(CUSTOMERS_GENDER,          user.getCustomersGender());
         values.put(CUSTOMERS_NEWSLETTER,      user.getCustomersNewsletter());
         values.put(CUSTOMERS_PICTURE,         user.getCustomersPicture());
+//        values.put(IS_KURIR,         user.getIsKurir());
 
         db.update(TABLE_USER_INFO, values, CUSTOMERS_EMAIL_ADDRESS +" = ?", new String[]{user.getCustomersEmailAddress()});
 

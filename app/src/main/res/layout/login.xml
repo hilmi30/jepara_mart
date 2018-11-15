@@ -27,12 +27,12 @@
             android:padding="20dp">
 
             <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:id="@+id/logoImg"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/icons_stripe"
-                android:tint="@color/iconsLight"/>
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:src="@drawable/jmartlogo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
