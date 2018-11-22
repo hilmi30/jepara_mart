@@ -446,14 +446,11 @@ public class Category_Products extends Fragment {
                         addCategoryProducts(response.body());
                         
                         // Show the Message to the User
-                        if (isVisible)
-                            Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
-
+                        if (isVisible) Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                     else {
                         // Unable to get Success status
-                        if (isVisible)
-                            Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
+                        if (isVisible) Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
                     }
 
                     // Hide the ProgressBar
@@ -461,16 +458,14 @@ public class Category_Products extends Fragment {
                     
                 }
                 else {
-                    if (isVisible)
-                        Toast.makeText(getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
+                    if (isVisible) Toast.makeText(getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
                 }
                 
             }
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                if (isVisible)
-                    Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                if (isVisible) Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
             }
         });
     }

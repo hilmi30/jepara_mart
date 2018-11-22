@@ -106,6 +106,7 @@ public class Update_Account extends Fragment {
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.actionAccount));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get the CustomerID from SharedPreferences
         customers_id = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");

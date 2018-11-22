@@ -96,6 +96,7 @@ public class Product_Description extends Fragment {
         // Set the Title of Toolbar
         MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.product_description));
+        MainActivity.jmartLogo.setVisibility(View.GONE);
 
         // Get the CustomerID from SharedPreferences
         customerID = this.getContext().getSharedPreferences("UserInfo", getContext().MODE_PRIVATE).getString("userID", "");
@@ -170,7 +171,6 @@ public class Product_Description extends Fragment {
 
         // Setup the ImageSlider of Product Images
         ImageSlider(productDetails.getProductsImage(), itemImages);
-
 
         // Set Product's Information
         title.setText(productDetails.getProductsName());
@@ -458,11 +458,12 @@ public class Product_Description extends Fragment {
 
     private void ImageSlider(String itemThumbnail, List<Image> itemImages) {
 
+        String noSpaceString = itemThumbnail.replace(" ", "%20");
+
         // Initialize new HashMap<ImageName, ImagePath>
         final HashMap<String, String> slider_covers = new HashMap<>();
         // Initialize new Array for Image's URL
         final String[] images = new String[itemImages.size()];
-
 
         if (itemImages.size() > 0) {
             for (int i=0;  i< itemImages.size();  i++) {
@@ -477,13 +478,14 @@ public class Product_Description extends Fragment {
             slider_covers.put("a", ""+R.drawable.placeholder);
 
         } else if (images.length == 0) {
-            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+itemThumbnail);
+            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+noSpaceString);
 
         } else {
-            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+itemThumbnail);
+            slider_covers.put("a", ConstantValues.ECOMMERCE_URL+noSpaceString);
 
             for (int i=0;  i<images.length;  i++) {
-                slider_covers.put("b"+i, ConstantValues.ECOMMERCE_URL+images[i]);
+                String strImgNoSpace = images[i].replace(" ", "%20");
+                slider_covers.put("b"+i, ConstantValues.ECOMMERCE_URL+strImgNoSpace);
             }
         }
 
@@ -519,7 +521,7 @@ public class Product_Description extends Fragment {
         }
 
         // Set PresetTransformer type of the SliderLayout
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
 
 
         // Check if the size of Images in the Slider is less than 2

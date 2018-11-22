@@ -163,12 +163,13 @@ public class HomePage_1 extends Fragment implements BaseSliderView.OnSliderClick
         for (int i=0;  i< bannerImages.size();  i++) {
             // Get bannerDetails at given Position from bannerImages List
             BannerDetails bannerDetails =  bannerImages.get(i);
+            String noSpaceStr = bannerDetails.getImage().replace(" ", "%20");
 
             // Put Image's Name and URL to the HashMap slider_covers
             slider_covers.put
                     (
                             "Image"+bannerDetails.getTitle(),
-                            ConstantValues.ECOMMERCE_URL+bannerDetails.getImage()
+                            ConstantValues.ECOMMERCE_URL + noSpaceStr
                     );
         }
 
@@ -190,7 +191,7 @@ public class HomePage_1 extends Fragment implements BaseSliderView.OnSliderClick
         }
 
         // Set PresetTransformer type of the SliderLayout
-        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
 
 
         // Check if the size of Images in the Slider is less than 2

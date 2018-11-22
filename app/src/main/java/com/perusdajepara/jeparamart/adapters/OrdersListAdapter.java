@@ -99,18 +99,6 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.My
                 break;
         }
 
-        // Check Order's status
-//        if (orderDetails.getOrdersStatusId().equalsIgnoreCase("1")) {
-//            holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBlue));
-//        } else if (orderDetails.getOrdersStatusId().equalsIgnoreCase("Completed")) {
-//            holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
-//        } else if (orderDetails.getOrdersStatus().equalsIgnoreCase("Verified")) {
-//            holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLight));
-//        } else if (orderDetails.getOrdersStatus().equalsIgnoreCase("Sending")) {
-//            holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentOrange));
-//        } else {
-//            holder.order_status.setTextColor(ContextCompat.getColor(context, R.color.colorAccentRed));
-//        }
 
         holder.order_view_btn.setOnClickListener(new View.OnClickListener() {
             @Override
