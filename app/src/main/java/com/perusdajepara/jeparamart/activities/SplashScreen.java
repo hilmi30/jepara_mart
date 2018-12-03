@@ -112,7 +112,7 @@ public class SplashScreen extends AppCompatActivity {
             
         }
         else {
-            ConstantValues.APP_HEADER = getString(R.string.app_name);
+            ConstantValues.APP_HEADER = "";
             
             ConstantValues.CURRENCY_SYMBOL = "Rp";
             ConstantValues.NEW_PRODUCT_DURATION = 30;

@@ -191,18 +191,37 @@
             <com.mapbox.mapboxsdk.maps.MapView
                 android:id="@+id/mapViewAddress"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                mapbox:mapbox_styleUrl="mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue" />
+                android:layout_height="350dp" />
 
-            <Button
-                android:textColor="@color/white"
-                android:background="@color/colorPrimary"
-                android:enabled="false"
-                android:clickable="false"
-                android:id="@+id/reset_coor"
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/reset"/>
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:enabled="false"
+                    android:clickable="false"
+                    android:id="@+id/reset_coor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reset"/>
+
+                <Button
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/get_my_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_location"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/default_shipping_layout"

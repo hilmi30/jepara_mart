@@ -72,7 +72,6 @@ public class CategoryListAdapter_1 extends RecyclerView.Adapter<CategoryListAdap
                 .error(R.drawable.placeholder)
                 .into(holder.category_image);
 
-
         holder.category_title.setText(categoryDetails.getName());
         holder.category_products.setText(categoryDetails.getTotalProducts() + " "+ context.getString(R.string.products));
 

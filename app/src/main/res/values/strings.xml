@@ -365,5 +365,6 @@
     <string name="item_diterima">Item received</string>
     <string name="konfimasi">Confirmation Item Received</string>
     <string name="berhasil_disalin">Copied</string>
+    <string name="my_location">My Location</string>
 
 </resources>

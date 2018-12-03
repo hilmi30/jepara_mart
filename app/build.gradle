@@ -69,6 +69,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
     implementation 'com.google.android.gms:play-services-location:12.0.1'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.1'
+    implementation 'io.nlopez.smartlocation:library:3.3.3'
 
 }
 

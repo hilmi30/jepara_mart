@@ -51,8 +51,10 @@ import com.perusdajepara.jeparamart.models.address_model.Provinsi;
 import com.perusdajepara.jeparamart.models.address_model.ProvinsiDetails;
 import com.perusdajepara.jeparamart.models.address_model.KabupatenDetails;
 import com.perusdajepara.jeparamart.network.APIClient;
+import com.perusdajepara.jeparamart.utils.CheckPermissions;
 import com.perusdajepara.jeparamart.utils.ValidateInputs;
 
+import io.nlopez.smartlocation.SmartLocation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,7 +81,7 @@ public class Shipping_Address extends Fragment {
 
     private MapView mapView;
 
-    Button proceed_checkout_btn, resetBtn;
+    Button proceed_checkout_btn, resetBtn, lokasiBtn;
     LinearLayout default_shipping_layout;
     EditText input_firstname, input_lastname, input_address, input_prov, input_kab, input_kec, input_city, input_postcode;
 
@@ -123,6 +125,7 @@ public class Shipping_Address extends Fragment {
         input_postcode = (EditText) rootView.findViewById(R.id.postcode);
         default_shipping_layout = (LinearLayout) rootView.findViewById(R.id.default_shipping_layout);
         proceed_checkout_btn = (Button) rootView.findViewById(R.id.save_address_btn);
+        lokasiBtn = rootView.findViewById(R.id.get_my_location);
 
 
         // Set KeyListener of some View to null
@@ -149,7 +152,6 @@ public class Shipping_Address extends Fragment {
 
         mapView = (MapView) rootView.findViewById(R.id.mapViewAddress);
         mapView.onCreate(savedInstanceState);
-        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
 
         // Request Provinsi
         RequestProv();
@@ -721,6 +723,21 @@ public class Shipping_Address extends Fragment {
             resetBtn.setClickable(true);
 
             setMarker(mapboxMap, lat, lng);
+
+            lokasiBtn.setOnClickListener(view -> {
+                if (CheckPermissions.is_LOCATION_PermissionGranted()) {
+                    SmartLocation.with(getContext()).location().start(location -> {
+                        lat = location.getLatitude();
+                        lng = location.getLongitude();
+
+                        Log.d("lat", lat.toString());
+                        Log.d("lng", lng.toString());
+
+                        mapboxMap.clear();
+                        setMarker(mapboxMap, lat, lng);
+                    });
+                }
+            });
 
             resetBtn.setOnClickListener(view -> {
                 mapboxMap.clear();

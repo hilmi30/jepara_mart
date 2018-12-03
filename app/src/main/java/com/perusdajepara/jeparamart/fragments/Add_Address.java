@@ -1,6 +1,7 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +26,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -44,7 +49,11 @@ import com.perusdajepara.jeparamart.models.address_model.Provinsi;
 import com.perusdajepara.jeparamart.models.address_model.ProvinsiDetails;
 import com.perusdajepara.jeparamart.models.address_model.KabupatenDetails;
 import com.perusdajepara.jeparamart.network.APIClient;
+import com.perusdajepara.jeparamart.utils.CheckPermissions;
 import com.perusdajepara.jeparamart.utils.ValidateInputs;
+
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,7 +69,7 @@ public class Add_Address extends Fragment {
     String customerID, addressID;
     String selectedKabID, selectedProvID, selectedKecID;
 
-    Button saveAddressBtn, resetBtn;
+    Button saveAddressBtn, resetBtn, lokasiBtn;
     LinearLayout default_shipping_layout;
     EditText input_firstname, input_lastname, input_address, input_prov, input_kab, input_city, input_kec, input_postcode;
     
@@ -124,6 +133,7 @@ public class Add_Address extends Fragment {
         input_postcode = (EditText) rootView.findViewById(R.id.postcode);
         saveAddressBtn = (Button) rootView.findViewById(R.id.save_address_btn);
         default_shipping_layout = (LinearLayout) rootView.findViewById(R.id.default_shipping_layout);
+        lokasiBtn = rootView.findViewById(R.id.get_my_location);
 
 
         // Set KeyListener of some View to null
@@ -183,7 +193,7 @@ public class Add_Address extends Fragment {
 
         mapView = (MapView) rootView.findViewById(R.id.mapViewAddress);
         mapView.onCreate(savedInstanceState);
-        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
+//        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
         mapView.getMapAsync(mapboxMap -> {
 
             mapbox = mapboxMap;
@@ -232,6 +242,20 @@ public class Add_Address extends Fragment {
             setMarker(defLat, defLng);
         });
 
+        lokasiBtn.setOnClickListener(view -> {
+            if (CheckPermissions.is_LOCATION_PermissionGranted()) {
+                SmartLocation.with(getContext()).location().start(location -> {
+                    lat = location.getLatitude();
+                    lng = location.getLongitude();
+
+                    Log.d("lat", lat.toString());
+                    Log.d("lng", lng.toString());
+
+                    mapbox.clear();
+                    setMarker(lat, lng);
+                });
+            }
+        });
 
         // Handle Touch event of input_prov EditText
         input_prov.setOnTouchListener(new View.OnTouchListener() {
@@ -579,7 +603,6 @@ public class Add_Address extends Fragment {
     }
 
 
-
     //*********** Get Kabupaten List of the Country from the Server ********//
 
     private void RequestKec(String kecId) {
@@ -819,6 +842,7 @@ public class Add_Address extends Fragment {
     public void onStop() {
         super.onStop();
         mapView.onStop();
+        SmartLocation.with(getContext()).location().stop();
     }
 
     @Override
