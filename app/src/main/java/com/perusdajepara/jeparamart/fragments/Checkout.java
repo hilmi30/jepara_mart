@@ -267,8 +267,9 @@ public class Checkout extends Fragment {
 
         mapView = (MapView) rootView.findViewById(R.id.map_checkout);
         mapView.onCreate(savedInstanceState);
-        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
         mapView.getMapAsync(mapboxMap -> {
+
+            mapboxMap.getUiSettings().setAllGesturesEnabled(false);
 
             LatLng latLng = new LatLng(shippingAddress.getLat(), shippingAddress.getLng());
 
@@ -286,18 +287,18 @@ public class Checkout extends Fragment {
             mapboxMap.setCameraPosition(cameraPosition);
         });
 
-        mapView.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_MOVE:
-                    nestedScrollView.requestDisallowInterceptTouchEvent(true);
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    nestedScrollView.requestDisallowInterceptTouchEvent(false);
-                    break;
-            }
-            return mapView.onTouchEvent(event);
-        });
+//        mapView.setOnTouchListener((v, event) -> {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_MOVE:
+//                    nestedScrollView.requestDisallowInterceptTouchEvent(true);
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                case MotionEvent.ACTION_CANCEL:
+//                    nestedScrollView.requestDisallowInterceptTouchEvent(false);
+//                    break;
+//            }
+//            return mapView.onTouchEvent(event);
+//        });
 
         // Request Payment Methods
         RequestPaymentMethods();
@@ -1293,7 +1294,7 @@ public class Checkout extends Fragment {
             @Override
             public void onFailure(Call<PaymentMethodsData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -1340,7 +1341,7 @@ public class Checkout extends Fragment {
             @Override
             public void onFailure(Call<GetBrainTreeToken> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -1436,7 +1437,7 @@ public class Checkout extends Fragment {
             @Override
             public void onFailure(Call<CouponsData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -1505,7 +1506,7 @@ public class Checkout extends Fragment {
             @Override
             public void onFailure(Call<OrderData> call, Throwable t) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -410,7 +410,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -449,7 +449,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -534,7 +534,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -622,7 +622,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Login.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Login.this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

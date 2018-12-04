@@ -255,7 +255,7 @@ public class Languages extends Fragment {
             
             @Override
             public void onFailure(Call<LanguageData> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

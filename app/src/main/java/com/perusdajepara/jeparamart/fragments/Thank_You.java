@@ -129,9 +129,14 @@ public class Thank_You extends Fragment {
         order_status_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-    
+
+                Bundle bundle = new Bundle();
+                bundle.putString("kurir" ,"0");
+
                 // Navigate to My_Orders Fragment
                 Fragment fragment = new My_Orders();
+                fragment.setArguments(bundle);
+
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, fragment)

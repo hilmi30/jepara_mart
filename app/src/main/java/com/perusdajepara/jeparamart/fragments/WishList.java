@@ -204,7 +204,7 @@ public class WishList extends Fragment {
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

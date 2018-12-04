@@ -321,7 +321,7 @@ public class All_Products extends Fragment {
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

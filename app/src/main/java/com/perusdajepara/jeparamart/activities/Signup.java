@@ -478,7 +478,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
                 dialogLoader.hideProgressDialog();
-                Toast.makeText(Signup.this, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(Signup.this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

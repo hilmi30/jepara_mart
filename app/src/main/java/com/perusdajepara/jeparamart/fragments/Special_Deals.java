@@ -146,7 +146,7 @@ public class Special_Deals extends Fragment {
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
                 if (!networkCall.isCanceled()) {
-                    Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
                 }
             }
         });

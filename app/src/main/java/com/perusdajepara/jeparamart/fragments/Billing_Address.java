@@ -656,7 +656,7 @@ public class Billing_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Provinsi> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -707,7 +707,7 @@ public class Billing_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kabupaten> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -754,7 +754,7 @@ public class Billing_Address extends Fragment {
 
             @Override
             public void onFailure(Call<Kecamatan> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

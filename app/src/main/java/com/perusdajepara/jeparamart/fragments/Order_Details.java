@@ -373,6 +373,8 @@ public class Order_Details extends Fragment {
         mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
         mapView.getMapAsync(mapboxMap -> {
 
+            mapboxMap.getUiSettings().setAllGesturesEnabled(false);
+
             LatLng latLng = new com.mapbox.mapboxsdk.geometry.LatLng(Double.parseDouble(orderDetails.getCustomersLat()),
                     Double.parseDouble(orderDetails.getCustomersLong()));
 
@@ -391,18 +393,18 @@ public class Order_Details extends Fragment {
 
         });
 
-        mapView.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_MOVE:
-                    orderScroll.requestDisallowInterceptTouchEvent(true);
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    orderScroll.requestDisallowInterceptTouchEvent(false);
-                    break;
-            }
-            return mapView.onTouchEvent(event);
-        });
+//        mapView.setOnTouchListener((v, event) -> {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_MOVE:
+//                    orderScroll.requestDisallowInterceptTouchEvent(true);
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                case MotionEvent.ACTION_CANCEL:
+//                    orderScroll.requestDisallowInterceptTouchEvent(false);
+//                    break;
+//            }
+//            return mapView.onTouchEvent(event);
+//        });
 
         return rootView;
 
@@ -450,7 +452,7 @@ public class Order_Details extends Fragment {
 
             @Override
             public void onFailure(Call<OrderData> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -545,7 +547,7 @@ public class Order_Details extends Fragment {
 
             @Override
             public void onFailure(Call<OrderData> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }

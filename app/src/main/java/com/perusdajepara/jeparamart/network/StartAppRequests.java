@@ -130,7 +130,7 @@ public class StartAppRequests {
             
             @Override
             public void onFailure(Call<UserData> call, Throwable t) {
-//                Toast.makeText(context, "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
         

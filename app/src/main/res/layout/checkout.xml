@@ -594,8 +594,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/map_checkout"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                mapbox:mapbox_styleUrl="mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue" />
+                android:layout_height="350dp" />
 
             <Button
                 android:id="@+id/change_location_btn"

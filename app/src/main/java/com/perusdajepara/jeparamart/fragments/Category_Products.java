@@ -472,7 +472,7 @@ public class Category_Products extends Fragment {
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
                 if (isVisible) {
-                    Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -536,7 +536,7 @@ public class Category_Products extends Fragment {
 
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
-                Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -566,25 +566,29 @@ public class Category_Products extends Fragment {
 
                     }
                     else if (response.body().getSuccess().equalsIgnoreCase("0")) {
-                        if (isVisible)
+                        if (isVisible) {
                             Snackbar.make(rootView, response.body().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
 
                     }
                     else {
-                        if (isVisible)
+                        if (isVisible) {
                             Snackbar.make(rootView, getString(R.string.unexpected_response), Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 else {
-                    if (isVisible)
-                        Toast.makeText(getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
+                    if (isVisible) {
+                        Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<FilterData> call, Throwable t) {
-                if (isVisible)
-                    Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                if (isVisible) {
+                    Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

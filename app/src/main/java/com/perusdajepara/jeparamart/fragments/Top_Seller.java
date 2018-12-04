@@ -147,7 +147,7 @@ public class Top_Seller extends Fragment {
             @Override
             public void onFailure(Call<ProductData> call, Throwable t) {
                 if (!networkCall.isCanceled()) {
-                    Toast.makeText(getContext(), "NetworkCallFailure : "+t, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.terjadi_kesalahan), Toast.LENGTH_LONG).show();
                 }
             }
         });
