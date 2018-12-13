@@ -61,9 +61,10 @@ public class Order_Details extends Fragment {
     CardView buyer_comments_card, seller_comments_card;
     RecyclerView checkout_items_recycler, checkout_coupons_recycler;
     TextView checkout_subtotal, checkout_tax, checkout_shipping, checkout_discount, checkout_total,
-            finalPrice, bankName, rekeningText, paymentCode, konfirmasiDiterima, konfirmasiTransfer, contactUsText;
+            finalPrice, bankName, bankName2, bankName3, rekeningText, rekeningText2, rekeningText3, paymentCode, konfirmasiDiterima,
+            konfirmasiTransfer, contactUsText;
     TextView billing_name, billing_street, billing_address, shipping_name, shipping_street,
-            shipping_address, copyRekening, copyFinalPrice, currencyTotalPrice;
+            shipping_address, copyRekening, copyRekening2, copyRekening3, copyFinalPrice, currencyTotalPrice;
     TextView order_price, order_products_count, order_status, order_date, shipping_method,
             payment_method, buyer_comments, seller_comments, order_id, copyOrderID, orderCodeText;
     LinearLayout transferLayout, mapLayout;
@@ -122,9 +123,19 @@ public class Order_Details extends Fragment {
         transferLayout = (LinearLayout) rootView.findViewById(R.id.transfer_layout);
         finalPrice = (TextView) rootView.findViewById(R.id.final_price);
         bankName = (TextView) rootView.findViewById(R.id.bank_name);
+        bankName2 = (TextView) rootView.findViewById(R.id.bank_name2);
+        bankName3 = (TextView) rootView.findViewById(R.id.bank_name3);
+
         rekeningText = (TextView) rootView.findViewById(R.id.rekening_text);
+        rekeningText2 = (TextView) rootView.findViewById(R.id.rekening_text2);
+        rekeningText3 = (TextView) rootView.findViewById(R.id.rekening_text3);
+
         copyFinalPrice = (TextView) rootView.findViewById(R.id.copy_totalprice);
+
         copyRekening = (TextView) rootView.findViewById(R.id.copy_rekening);
+        copyRekening2 = (TextView) rootView.findViewById(R.id.copy_rekening2);
+        copyRekening3 = (TextView) rootView.findViewById(R.id.copy_rekening3);
+
         currencyTotalPrice = (TextView) rootView.findViewById(R.id.currency_totalprice);
         paymentCode = (TextView) rootView.findViewById(R.id.checkout_payment_code);
         contactUs = (Button) rootView.findViewById(R.id.contact_us_btn);
@@ -248,8 +259,14 @@ public class Order_Details extends Fragment {
         orderCodeText.setText(orderDetails.getOrdersCode());
 
         finalPrice.setText(priceFinal);
+
         bankName.setText(orderDetails.getBankName());
+        bankName2.setText(orderDetails.getBankName2());
+        bankName3.setText(orderDetails.getBankName3());
+
         rekeningText.setText(orderDetails.getRekening());
+        rekeningText2.setText(orderDetails.getRekening2());
+        rekeningText3.setText(orderDetails.getRekening3());
 
         checkout_tax.setText(Tax);
         checkout_shipping.setText(Shipping);
@@ -289,6 +306,20 @@ public class Order_Details extends Fragment {
         copyRekening.setOnClickListener(v -> {
             android.content.ClipboardManager clipboardMgr = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("Copied text", rekeningText.getText());
+            clipboardMgr.setPrimaryClip(clip);
+            Toast.makeText(getContext(), getString(R.string.berhasil_disalin), Toast.LENGTH_SHORT).show();
+        });
+
+        copyRekening2.setOnClickListener(v -> {
+            android.content.ClipboardManager clipboardMgr = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Copied text", rekeningText2.getText());
+            clipboardMgr.setPrimaryClip(clip);
+            Toast.makeText(getContext(), getString(R.string.berhasil_disalin), Toast.LENGTH_SHORT).show();
+        });
+
+        copyRekening3.setOnClickListener(v -> {
+            android.content.ClipboardManager clipboardMgr = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Copied text", rekeningText3.getText());
             clipboardMgr.setPrimaryClip(clip);
             Toast.makeText(getContext(), getString(R.string.berhasil_disalin), Toast.LENGTH_SHORT).show();
         });
@@ -370,7 +401,6 @@ public class Order_Details extends Fragment {
         checkout_items_recycler.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
         mapView.onCreate(savedInstanceState);
-        mapView.setStyleUrl("mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue");
         mapView.getMapAsync(mapboxMap -> {
 
             mapboxMap.getUiSettings().setAllGesturesEnabled(false);

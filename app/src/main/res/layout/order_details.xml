@@ -850,8 +850,7 @@
                 <com.mapbox.mapboxsdk.maps.MapView
                     android:id="@+id/order_map"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    mapbox:mapbox_styleUrl="mapbox://styles/hilmi30/cjno37nyd0w9q2splwp0kwuue" />
+                    android:layout_height="350dp" />
 
                 <Button
                     android:background="@color/colorPrimary"
@@ -980,6 +979,86 @@
                 <TextView
                     android:padding="15dp"
                     android:id="@+id/copy_rekening"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy"
+                    android:textColor="@color/colorAccentRed"
+                    android:layout_gravity="end"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/bank_name2"
+                        android:layout_weight="1.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Bank Mandiri"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColorSecondaryLight"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/rekening_text2"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="11122 233445 56677"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorAccentGreen"
+                        android:gravity="end|center_vertical" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:padding="15dp"
+                    android:id="@+id/copy_rekening2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/copy"
+                    android:textColor="@color/colorAccentRed"
+                    android:layout_gravity="end"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/bank_name3"
+                        android:layout_weight="1.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Bank Mandiri"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColorSecondaryLight"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/rekening_text3"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="11122 233445 56677"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorAccentGreen"
+                        android:gravity="end|center_vertical" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:padding="15dp"
+                    android:id="@+id/copy_rekening3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/copy"

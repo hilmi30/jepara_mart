@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -224,90 +225,107 @@ public class HomePage_1 extends Fragment implements BaseSliderView.OnSliderClick
         
         int position = sliderLayout.getCurrentPosition();
         String url = bannerImages.get(position).getUrl();
-        String type = bannerImages.get(position).getType();
-    
-        if (type.equalsIgnoreCase("product")) {
-            if (!TextUtils.isEmpty(url)) {
-                // Get Product Info
-                Bundle bundle = new Bundle();
-                bundle.putInt("itemID", Integer.parseInt(url));
-            
-                // Navigate to Product_Description of selected Product
-                Fragment fragment = new Product_Description();
-                fragment.setArguments(bundle);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-            }
-            
-        }
-        else if (type.equalsIgnoreCase("category")) {
-            if (!TextUtils.isEmpty(url)) {
-                int categoryID = 0;
-                String categoryName = "";
-            
-                for (int i=0;  i<allCategoriesList.size();  i++) {
-                    if (url.equalsIgnoreCase(allCategoriesList.get(i).getId())) {
-                        categoryName = allCategoriesList.get(i).getName();
-                        categoryID = Integer.parseInt(allCategoriesList.get(i).getId());
-                    }
-                }
-            
-                // Get Category Info
-                Bundle bundle = new Bundle();
-                bundle.putInt("CategoryID", categoryID);
-                bundle.putString("CategoryName", categoryName);
-            
-                // Navigate to Products Fragment
-                Fragment fragment = new Products();
-                fragment.setArguments(bundle);
-                fragmentManager.beginTransaction()
-                        .replace(R.id.main_fragment, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(getString(R.string.actionHome)).commit();
-            }
-            
-        }
-        else if (type.equalsIgnoreCase("deals")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("sortBy", "special");
-        
-            // Navigate to Products Fragment
-            Fragment fragment = new Products();
-            fragment.setArguments(bundle);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(getString(R.string.actionHome)).commit();
-            
-        }
-        else if (type.equalsIgnoreCase("top seller")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("sortBy", "top seller");
-        
-            // Navigate to Products Fragment
-            Fragment fragment = new Products();
-            fragment.setArguments(bundle);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(getString(R.string.actionHome)).commit();
-            
-        }
-        else if (type.equalsIgnoreCase("most liked")) {
-            Bundle bundle = new Bundle();
-            bundle.putString("sortBy", "most liked");
-        
-            // Navigate to Products Fragment
-            Fragment fragment = new Products();
-            fragment.setArguments(bundle);
-            fragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment, fragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .addToBackStack(getString(R.string.actionHome)).commit();
-            
-        }
+        String img = bannerImages.get(position).getImage();
+        // String type = bannerImages.get(position).getType();
+        String desc = bannerImages.get(position).getDescription();
+        String title = bannerImages.get(position).getTitle();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("imgBanner", ConstantValues.ECOMMERCE_URL + img);
+        bundle.putString("descBanner", desc);
+        bundle.putString("titleBanner", title);
+
+        MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        Fragment fragment = new BannerDetailFragment();
+        fragment.setArguments(bundle);
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+
+
+//        if (type.equalsIgnoreCase("product")) {
+//            if (!TextUtils.isEmpty(url)) {
+//                // Get Product Info
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("itemID", Integer.parseInt(url));
+//
+//                // Navigate to Product_Description of selected Product
+//                Fragment fragment = new Product_Description();
+//                fragment.setArguments(bundle);
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, fragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                        .addToBackStack(getString(R.string.actionHome)).commit();
+//            }
+//
+//        }
+//        else if (type.equalsIgnoreCase("category")) {
+//            if (!TextUtils.isEmpty(url)) {
+//                int categoryID = 0;
+//                String categoryName = "";
+//
+//                for (int i=0;  i<allCategoriesList.size();  i++) {
+//                    if (url.equalsIgnoreCase(allCategoriesList.get(i).getId())) {
+//                        categoryName = allCategoriesList.get(i).getName();
+//                        categoryID = Integer.parseInt(allCategoriesList.get(i).getId());
+//                    }
+//                }
+//
+//                // Get Category Info
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("CategoryID", categoryID);
+//                bundle.putString("CategoryName", categoryName);
+//
+//                // Navigate to Products Fragment
+//                Fragment fragment = new Products();
+//                fragment.setArguments(bundle);
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.main_fragment, fragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                        .addToBackStack(getString(R.string.actionHome)).commit();
+//            }
+//
+//        }
+//        else if (type.equalsIgnoreCase("deals")) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("sortBy", "special");
+//
+//            // Navigate to Products Fragment
+//            Fragment fragment = new Products();
+//            fragment.setArguments(bundle);
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.main_fragment, fragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                    .addToBackStack(getString(R.string.actionHome)).commit();
+//
+//        }
+//        else if (type.equalsIgnoreCase("top seller")) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("sortBy", "top seller");
+//
+//            // Navigate to Products Fragment
+//            Fragment fragment = new Products();
+//            fragment.setArguments(bundle);
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.main_fragment, fragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                    .addToBackStack(getString(R.string.actionHome)).commit();
+//
+//        }
+//        else if (type.equalsIgnoreCase("most liked")) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("sortBy", "most liked");
+//
+//            // Navigate to Products Fragment
+//            Fragment fragment = new Products();
+//            fragment.setArguments(bundle);
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.main_fragment, fragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                    .addToBackStack(getString(R.string.actionHome)).commit();
+//
+//        }
         
     }
     

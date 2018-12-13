@@ -220,6 +220,22 @@ public class OrderDetails implements Parcelable {
     @Expose
     private String rekening;
 
+    @SerializedName("bank_name2")
+    @Expose
+    private String bankName2;
+
+    @SerializedName("rekening2")
+    @Expose
+    private String rekening2;
+
+    @SerializedName("bank_name3")
+    @Expose
+    private String bankName3;
+
+    @SerializedName("rekening3")
+    @Expose
+    private String rekening3;
+
     @SerializedName("customers_long")
     @Expose
     private String customersLong;
@@ -243,6 +259,38 @@ public class OrderDetails implements Parcelable {
     @SerializedName("billing_lat")
     @Expose
     private String billingLat;
+
+    public String getBankName2() {
+        return bankName2;
+    }
+
+    public void setBankName2(String bankName2) {
+        this.bankName2 = bankName2;
+    }
+
+    public String getRekening2() {
+        return rekening2;
+    }
+
+    public void setRekening2(String rekening2) {
+        this.rekening2 = rekening2;
+    }
+
+    public String getBankName3() {
+        return bankName3;
+    }
+
+    public void setBankName3(String bankName3) {
+        this.bankName3 = bankName3;
+    }
+
+    public String getRekening3() {
+        return rekening3;
+    }
+
+    public void setRekening3(String rekening3) {
+        this.rekening3 = rekening3;
+    }
 
     public String getCustomersLong() {
         return customersLong;

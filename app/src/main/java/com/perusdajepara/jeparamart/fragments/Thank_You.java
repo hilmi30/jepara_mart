@@ -35,9 +35,9 @@ public class Thank_You extends Fragment {
     Button order_status_btn, continue_shopping_btn;
     LinearLayout thankYou, transferLayout;
     Boolean isTransfer;
-    String noRekening, orderCode, bankName, finalPrice;
-    TextView rekeningText, orderCodeText, bankNameText, finalPriceText, copyTotalPrice, copyRekening,
-            currencyTotalPrice, copyOrderID;
+    String noRekening, noRekening2, noRekening3, orderCode, bankName, bankName2, bankName3, finalPrice;
+    TextView rekeningText, rekeningText2, rekeningText3, orderCodeText, bankNameText, bankNameText2, bankNameText3, finalPriceText, copyTotalPrice, copyRekening,
+    copyRekening2, copyRekening3, currencyTotalPrice, copyOrderID;
 
     @Nullable
     @Override
@@ -47,10 +47,13 @@ public class Thank_You extends Fragment {
         // Get the Bundle Arguments
         Bundle checkoutArg = getArguments();
         isTransfer = checkoutArg.getBoolean("transfer");
-        Log.d("transfer", isTransfer.toString());
         noRekening = checkoutArg.getString("rekening");
+        noRekening2 = checkoutArg.getString("rekening2");
+        noRekening3 = checkoutArg.getString("rekening3");
         orderCode = checkoutArg.getString("orderCode");
         bankName = checkoutArg.getString("bankName");
+        bankName2 = checkoutArg.getString("bankName2");
+        bankName3 = checkoutArg.getString("bankName3");
         finalPrice = checkoutArg.getString("finalPrice");
 
         // Enable Drawer Indicator with static variable actionBarDrawerToggle of MainActivity
@@ -64,12 +67,24 @@ public class Thank_You extends Fragment {
         continue_shopping_btn = (Button) rootView.findViewById(R.id.continue_shopping_btn);
         thankYou = (LinearLayout) rootView.findViewById(R.id.thankyou);
         transferLayout = (LinearLayout) rootView.findViewById(R.id.transfer_layout);
+
         rekeningText = (TextView) rootView.findViewById(R.id.rekening_text);
+        rekeningText2 = (TextView) rootView.findViewById(R.id.rekening_text2);
+        rekeningText3 = (TextView) rootView.findViewById(R.id.rekening_text3);
+
         orderCodeText = (TextView) rootView.findViewById(R.id.order_code);
+
         bankNameText = (TextView) rootView.findViewById(R.id.bank_name);
+        bankNameText2 = (TextView) rootView.findViewById(R.id.bank_name2);
+        bankNameText3 = (TextView) rootView.findViewById(R.id.bank_name3);
+
         finalPriceText = (TextView) rootView.findViewById(R.id.final_price);
         copyTotalPrice = (TextView) rootView.findViewById(R.id.copy_totalprice);
+
         copyRekening = (TextView) rootView.findViewById(R.id.copy_rekening);
+        copyRekening2 = (TextView) rootView.findViewById(R.id.copy_rekening2);
+        copyRekening3 = (TextView) rootView.findViewById(R.id.copy_rekening3);
+
         currencyTotalPrice = (TextView) rootView.findViewById(R.id.currency_totalprice);
         copyOrderID = (TextView) rootView.findViewById(R.id.copy_order_id);
 
@@ -93,6 +108,26 @@ public class Thank_You extends Fragment {
             }
         });
 
+        copyRekening2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.content.ClipboardManager clipboardMgr = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied text", rekeningText2.getText());
+                clipboardMgr.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Copied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        copyRekening3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                android.content.ClipboardManager clipboardMgr = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied text", rekeningText3.getText());
+                clipboardMgr.setPrimaryClip(clip);
+                Toast.makeText(getContext(), "Copied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         copyTotalPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +141,12 @@ public class Thank_You extends Fragment {
         if(isTransfer) {
             transferLayout.setVisibility(View.VISIBLE);
             rekeningText.setText(noRekening);
+            rekeningText2.setText(noRekening2);
+            rekeningText3.setText(noRekening3);
             orderCodeText.setText(orderCode);
             bankNameText.setText(bankName);
+            bankNameText2.setText(bankName2);
+            bankNameText3.setText(bankName3);
             finalPriceText.setText(Utilities.convertToRupiahWithoutSymbol(finalPrice));
             currencyTotalPrice.setText(ConstantValues.CURRENCY_SYMBOL);
         } else {

@@ -124,7 +124,8 @@ public class Checkout extends Fragment {
     
     String tax;
     String braintreeToken;
-    String selectedPaymentMethod, selectedPublicKey, selectedBankName;
+    String selectedPaymentMethod, selectedPublicKey, selectedPublicKey2, selectedPublicKey3, selectedBankName,
+            selectedBankName2, selectedBankName3;
     String paymentNonceToken = "";
     double checkoutSubtotal, checkoutTax, checkoutShipping, checkoutShippingCost, checkoutDiscount, checkoutTotal = 0;
     
@@ -383,8 +384,14 @@ public class Checkout extends Fragment {
     
                         payment_method.setText(userSelectedPaymentMethod.getName());
                         selectedPaymentMethod = userSelectedPaymentMethod.getMethod();
+
                         selectedPublicKey = userSelectedPaymentMethod.getPublicKey();
+                        selectedPublicKey2 = userSelectedPaymentMethod.getPublicKey2();
+                        selectedPublicKey3 = userSelectedPaymentMethod.getPublicKey3();
+
                         selectedBankName = userSelectedPaymentMethod.getBankName();
+                        selectedBankName2 = userSelectedPaymentMethod.getBankName2();
+                        selectedBankName3 = userSelectedPaymentMethod.getBankName3();
                         
                         checkout_order_btn.setEnabled(true);
                         checkout_order_btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorAccentGreen));
@@ -1522,15 +1529,23 @@ public class Checkout extends Fragment {
         if(selectedPaymentMethod.equalsIgnoreCase("transfer")) {
             args.putBoolean("transfer", true);
             args.putString("rekening", selectedPublicKey);
+            args.putString("rekening2", selectedPublicKey2);
+            args.putString("rekening3", selectedPublicKey3);
             args.putString("orderCode", orderCode);
             args.putString("bankName", selectedBankName);
+            args.putString("bankName2", selectedBankName2);
+            args.putString("bankName3", selectedBankName3);
             args.putString("finalPrice", finalPrice);
             fragment.setArguments(args);
         } else {
             args.putBoolean("transfer", false);
             args.putString("rekening", "");
+            args.putString("rekening2", "");
+            args.putString("rekening3", "");
             args.putString("orderCode", "");
             args.putString("bankName", "");
+            args.putString("bankName2", "");
+            args.putString("bankName3", "");
             args.putString("finalPrice", "");
             fragment.setArguments(args);
         }

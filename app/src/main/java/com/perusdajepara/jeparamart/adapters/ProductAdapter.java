@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ import com.perusdajepara.jeparamart.fragments.My_Cart;
 import com.perusdajepara.jeparamart.fragments.Product_Description;
 import com.perusdajepara.jeparamart.R;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,7 +227,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             holder.product_thumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-    
+
+                    goToProductDescription(product);
                     // Get Product Info
                     Bundle itemInfo = new Bundle();
                     itemInfo.putParcelable("productDetails", product);
@@ -251,32 +250,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     }
                 }
             });
+
+            // Handle the Click event of product_thumbnail ImageView
+            holder.product_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToProductDescription(product);
+                }
+            });
     
     
             // Handle the Click event of product_checked ImageView
             holder.product_checked.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-    
-                    // Get Product Info
-                    Bundle itemInfo = new Bundle();
-                    itemInfo.putParcelable("productDetails", product);
-    
-                    // Navigate to Product_Description of selected Product
-                    Fragment fragment = new Product_Description();
-                    fragment.setArguments(itemInfo);
-                    MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment, fragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .addToBackStack(null).commit();
-    
-    
-                    // Add the Product to User's Recently Viewed Products
-                    if (!recents_db.getUserRecents().contains(product.getProductsId())) {
-                        recents_db.insertRecentItem(product.getProductsId());
-                    }
+                    goToProductDescription(product);
                 }
             });
     
@@ -322,6 +310,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     }
 
+    private void goToProductDescription(ProductDetails product) {
+        // Get Product Info
+        Bundle itemInfo = new Bundle();
+        itemInfo.putParcelable("productDetails", product);
+
+        // Navigate to Product_Description of selected Product
+        Fragment fragment = new Product_Description();
+        fragment.setArguments(itemInfo);
+        MainActivity.actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null).commit();
+
+
+        // Add the Product to User's Recently Viewed Products
+        if (!recents_db.getUserRecents().contains(product.getProductsId())) {
+            recents_db.insertRecentItem(product.getProductsId());
+        }
+    }
 
 
     //********** Returns the total number of items in the data set *********//
