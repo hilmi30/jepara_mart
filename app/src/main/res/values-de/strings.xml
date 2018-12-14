@@ -347,6 +347,7 @@
     <string name="konfimasi">Confirmation Item Received</string>
     <string name="berhasil_disalin">Copied</string>
     <string name="my_location">My Location</string>
+    <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
 
 
 </resources>

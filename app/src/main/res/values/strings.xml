@@ -267,13 +267,13 @@
 
 
     <!--  App Intro Slides Strings -->
-    <string name="slide_1_title"> Home Page </string>
-    <string name="slide_2_title"> Category Page </string>
-    <string name="slide_3_title"> Shop Page </string>
+    <string name="slide_1_title">Attractive Promos</string>
+    <string name="slide_2_title">Easier Shopping</string>
+    <string name="slide_3_title">Home and Office Products</string>
     <string name="slide_4_title"> Cart Page </string>
     <string name="slide_5_title"> Order Page </string>
-    <string name="slide_1_desc">"Simple and attractive front page. Make you comfortable in seeing and choosing items. "</string>
-    <string name="slide_2_desc">Get ease in choosing items based on the category you want.</string>
+    <string name="slide_1_desc">Find and get attractive promos on your favorite products</string>
+    <string name="slide_2_desc">Shopping is now easier by using the application on your smartphone.</string>
     <string name="slide_3_desc">"Search for items you want in our store. Our shop provides goods for various needs. "</string>
     <string name="slide_4_desc">Cart feature to make it easier for you to buy large quantities of goods.</string>
     <string name="slide_5_desc">"See your shopping details before buying. "</string>

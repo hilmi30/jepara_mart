@@ -223,14 +223,14 @@
     <string name="coupon_is_not_for_excluded_categories">Kupon tidak dapat digunakan pada kategori yang dikecualikan!</string>
     <string name="coupon_max_amount_is_less_than_order_total">Total keranjang tidak memenuhi jumlah maksimum untuk Kupon!</string>
     <string name="coupon_min_amount_is_greater_than_order_total">Total keranjang tidak memenuhi jumlah minimum untuk Kupon!</string>
-    <string name="slide_1_title">Halaman Depan</string>
-    <string name="slide_2_title">Halaman Kategori</string>
-    <string name="slide_3_title">Halaman Toko</string>
+    <string name="slide_1_title">Promo Menarik</string>
+    <string name="slide_2_title">Belanja Lebih Mudah</string>
+    <string name="slide_3_title">Produk Rumah dan Kantor</string>
     <string name="slide_4_title">Halaman Keranjang</string>
     <string name="slide_5_title">Halaman Order</string>
-    <string name="slide_1_desc">"Halaman depan yang sederhana dan menarik. Membuat anda nyaman dalam melihat dan memilih barang. "</string>
-    <string name="slide_2_desc">Dapatkan kemudahan dalam memilih barang berdasarkan kategori yang kamu inginkan.</string>
-    <string name="slide_3_desc">Cari barang yang ada mau di toko kami. Toko kami menyediakan barang untuk berbagai kebutuhan.</string>
+    <string name="slide_1_desc">Temukan dan dapatkan promo-promo menarik pada produk-produk favorit anda.</string>
+    <string name="slide_2_desc">Berbelanja kini lebih mudah dengan menggunakan aplikasi pada smartphone anda.</string>
+    <string name="slide_3_desc">Dapatkan segala macam kebutuhan kantor dan kebutuhan rumah anda.</string>
     <string name="slide_4_desc">Fitur cart untuk memudahkan anda membeli barang dalam jumlah banyak</string>
     <string name="slide_5_desc">Lihat detail belanjaan anda sebelum membeli.</string>
     <string name="select_language">Pilih Bahasa</string>
@@ -288,4 +288,5 @@
     <string name="konfimasi">Konfirmasi Barang Diterima</string>
     <string name="berhasil_disalin">Berhasil disalin</string>
     <string name="my_location">Lokasiku</string>
+    <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
 </resources>

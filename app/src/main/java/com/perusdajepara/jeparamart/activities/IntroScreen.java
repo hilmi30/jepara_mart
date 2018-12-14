@@ -36,13 +36,12 @@ public class IntroScreen extends AppIntro {
     
     
         myAppPrefsManager = new MyAppPrefsManager(IntroScreen.this);
-        
-    
+
         addSlide(new Intro_Slide_1());
         addSlide(new Intro_Slide_2());
         addSlide(new Intro_Slide_3());
-        addSlide(new Intro_Slide_4());
-        addSlide(new Intro_Slide_5());
+//        addSlide(new Intro_Slide_4());
+//        addSlide(new Intro_Slide_5());
     
     
         // Hide StatusBar
