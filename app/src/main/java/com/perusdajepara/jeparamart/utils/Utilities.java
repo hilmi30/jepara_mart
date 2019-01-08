@@ -75,6 +75,20 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class Utilities {
 
 
+    public static Bitmap scaleDown(Bitmap bitmap, Float maxImageSize, Boolean filter) {
+        Float ratio = Math.min(
+                maxImageSize / bitmap.getWidth(),
+                maxImageSize / bitmap.getHeight()
+        );
+
+        int width = Math.round(ratio * bitmap.getWidth());
+        int height = Math.round(ratio * bitmap.getHeight());
+
+        return Bitmap.createScaledBitmap(
+                bitmap, width, height, filter
+        );
+    }
+
     //*********** Checks if the Device is Connected to any Network ********//
 
     public static boolean isNetworkAvailable(Activity activity) {

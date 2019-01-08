@@ -55,6 +55,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.perusdajepara.jeparamart.constant.ConstantValues;
 import com.perusdajepara.jeparamart.customs.DialogLoader;
@@ -70,6 +71,7 @@ import com.perusdajepara.jeparamart.utils.ValidateInputs;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -83,6 +85,8 @@ public class Update_Account extends Fragment {
     String mCurrentPhotoPath = "";
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
     private static final int PICK_GALLERY_ID = 350;
+    private static final int galleryCode = 370;
+    private static final int cameraCode = 380;
 
     Button updateInfoBtn;
     CircularImageView user_photo;
@@ -176,6 +180,7 @@ public class Update_Account extends Fragment {
         // Set User's Photo
         if (!TextUtils.isEmpty(userInfo.getCustomersPicture())  &&  userInfo.getCustomersPicture() != null){
             profileImageCurrent = userInfo.getCustomersPicture();
+            Log.d("current", profileImageCurrent);
             // Picasso.with(getContext()).invalidate(ConstantValues.ECOMMERCE_URL+profileImageCurrent);
             Picasso.with(getContext())
                     .load(ConstantValues.ECOMMERCE_URL+profileImageCurrent)
@@ -296,11 +301,33 @@ public class Update_Account extends Fragment {
     //*********** Picks User Profile Image from Gallery or Camera ********//
 
     private void pickImage() {
-        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
-        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
+//        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
+//        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(getContext());
+//
+//        // Start Activity with Image Picker Intent
+//        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+        AlertDialog.Builder alert = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        alert.setTitle(R.string.take_image);
+        alert.setMessage(R.string.choose_action_to_take_image);
+        alert.setPositiveButton(R.string.gallery, (dialogInterface, i) -> {
+            fromGallery();
+        });
+        alert.setNegativeButton(R.string.camera, (dialogInterface, i) -> {
+            fromCamera();
+        });
+        alert.create().show();
+    }
 
-        // Start Activity with Image Picker Intent
-        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+    private void fromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, cameraCode);
+    }
+
+    private void fromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_image)), galleryCode);
     }
 
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
@@ -323,6 +350,26 @@ public class Update_Account extends Fragment {
                     profileImageChanged = Utilities.getBase64ImageStringFromBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            } else if (requestCode == galleryCode) {
+                if (data != null) {
+                    Uri contentUri = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),
+                                contentUri);
+                        Bitmap scaleBitmap = Utilities.scaleDown(bitmap, 500f, false);
+                        user_photo.setImageBitmap(scaleBitmap);
+                        profileImageChanged = Utilities.getBase64ImageStringFromBitmap(scaleBitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else if (requestCode == cameraCode) {
+                if (data.getExtras() != null) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    Bitmap scaleBitmap = Utilities.scaleDown(bitmap, 500f, false);
+                    user_photo.setImageBitmap(scaleBitmap);
+                    profileImageChanged = Utilities.getBase64ImageStringFromBitmap(scaleBitmap);
                 }
             }
         }

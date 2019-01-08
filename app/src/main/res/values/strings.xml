@@ -367,5 +367,10 @@
     <string name="berhasil_disalin">Copied</string>
     <string name="my_location">My Location</string>
     <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
+    <string name="take_image">Ambil Gambar</string>
+    <string name="choose_action_to_take_image">Pilih aksi untuk ambil gambar</string>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="choose_image">Pilih Gambar</string>
 
 </resources>

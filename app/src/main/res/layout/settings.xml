@@ -207,6 +207,7 @@
                     android:background="@color/layoutBackground" >
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/privacy_policy"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"

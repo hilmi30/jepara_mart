@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -66,6 +68,8 @@ public class Signup extends AppCompatActivity {
     View parentView;
     String profileImage;
     private static final int PICK_IMAGE_ID = 360;           // the number doesn't matter
+    private static final int galleryCode = 370;
+    private static final int cameraCode = 380;
 
     Toolbar toolbar;
     ActionBar actionBar;
@@ -341,15 +345,36 @@ public class Signup extends AppCompatActivity {
     //*********** Picks User Profile Image from Gallery or Camera ********//
 
     private void pickImage() {
-        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
-        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(Signup.this);
-
-        // Start Activity with Image Picker Intent
-        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+//        // Get Intent with Options of Image Picker Apps from the static method of ImagePicker class
+//        Intent chooseImageIntent = ImagePicker.getImagePickerIntent(Signup.this);
+//
+//        // Start Activity with Image Picker Intent
+//        startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.take_image);
+        alert.setMessage(R.string.choose_action_to_take_image);
+        alert.setPositiveButton(R.string.gallery, (dialogInterface, i) -> {
+            fromGallery();
+        });
+        alert.setNegativeButton(R.string.camera, (dialogInterface, i) -> {
+            fromCamera();
+        });
+        alert.create().show();
     }
-    
-    
-    
+
+    private void fromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, cameraCode);
+    }
+
+    private void fromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_image)), galleryCode);
+    }
+
+
     //*********** Receives the result from a previous call of startActivityForResult(Intent, int) ********//
     
     @Override
@@ -371,6 +396,25 @@ public class Signup extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            } else if (requestCode == galleryCode) {
+                if (data != null) {
+                    Uri contentUri = data.getData();
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), contentUri);
+                        Bitmap scaleBitmap = Utilities.scaleDown(bitmap, 500f, false);
+                        user_photo.setImageBitmap(scaleBitmap);
+                        profileImage = Utilities.getBase64ImageStringFromBitmap(scaleBitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else if (requestCode == cameraCode) {
+                if (data.getExtras() != null) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    Bitmap scaleBitmap = Utilities.scaleDown(bitmap, 500f, false);
+                    user_photo.setImageBitmap(scaleBitmap);
+                    profileImage = Utilities.getBase64ImageStringFromBitmap(scaleBitmap);
                 }
             }
         }
