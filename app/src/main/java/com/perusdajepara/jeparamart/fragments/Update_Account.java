@@ -158,6 +158,7 @@ public class Update_Account extends Fragment {
         else {
             // Get the String of Date from userInfo
             String dateString = userInfo.getCustomersDob();
+            Log.e("tanggal", dateString);
 
             Locale locale = new Locale("in", "ID");
             // Set Date Format
@@ -220,8 +221,9 @@ public class Update_Account extends Fragment {
                             calendar.set(Calendar.MONTH, monthOfYear);
                             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                            Locale locale = new Locale("in", "ID");
                             // Set Date Format
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", locale);
 
                             // Set Date in input_dob EditText
                             input_dob.setText(dateFormat.format(calendar.getTime()));

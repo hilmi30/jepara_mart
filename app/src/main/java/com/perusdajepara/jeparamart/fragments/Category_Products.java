@@ -530,7 +530,7 @@ public class Category_Products extends Fragment {
                     
                 }
                 else {
-                    Toast.makeText(getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), ""+response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -577,11 +577,11 @@ public class Category_Products extends Fragment {
                         }
                     }
                 }
-                else {
-                    if (isVisible) {
-                        Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
-                    }
-                }
+//                else {
+//                     if (isVisible) {
+//                         Toast.makeText(getContext(), "" + response.message(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
             }
 
             @Override

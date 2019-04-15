@@ -44,7 +44,7 @@ public class MyAppPrefsManager {
     }
     
     public Integer getUserLanguageId() {
-        return sharedPreferences.getInt(USER_LANGUAGE_ID, 5);
+        return sharedPreferences.getInt(USER_LANGUAGE_ID, 1);
     }
     
     public void setUserLanguageCode(String langCode) {
