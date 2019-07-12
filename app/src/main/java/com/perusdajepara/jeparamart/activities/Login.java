@@ -84,7 +84,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private static final int RC_SIGN_IN = 100;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

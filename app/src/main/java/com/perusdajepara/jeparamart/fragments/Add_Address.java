@@ -1,6 +1,7 @@
 package com.perusdajepara.jeparamart.fragments;
 
 
+import android.content.Intent;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ import com.perusdajepara.jeparamart.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.perusdajepara.jeparamart.customs.DialogLoader;
 import com.perusdajepara.jeparamart.models.address_model.AddressData;
@@ -91,7 +93,6 @@ public class Add_Address extends Fragment {
     Double lat, lng, defLat, defLng;
     CameraPosition cameraPosition;
     MarkerOptions markerOptions;
-
 
     @Nullable
     @Override

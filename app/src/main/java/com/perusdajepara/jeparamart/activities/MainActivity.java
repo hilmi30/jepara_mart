@@ -120,10 +120,15 @@ public class MainActivity extends AppCompatActivity {
     Map<Drawer_Items, List<Drawer_Items>> listDataChild = new HashMap<>();
 
     User_Info_DB userInfoDB = new User_Info_DB();
-    
-    
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "testing", Toast.LENGTH_LONG).show();
+    }
+
     //*********** Called when the Activity is becoming Visible to the User ********//
-    
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -150,8 +155,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     
         MobileAds.initialize(this, ConstantValues.ADMOBE_ID);
-        
-        
+
         // Get MyAppPrefsManager
         myAppPrefsManager = new MyAppPrefsManager(MainActivity.this);
         sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);

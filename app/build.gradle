@@ -7,8 +7,8 @@ android {
         applicationId 'com.perusdajepara.jeparamart'
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 2
-        versionName '1.1'
+        versionCode 3
+        versionName '1.1.1'
         multiDexEnabled true
         manifestPlaceholders = [onesignal_app_id: "a33b86bb-d35f-4f29-bcaf-f97a68662428", onesignal_google_project_number: "735140132931"]
     }
